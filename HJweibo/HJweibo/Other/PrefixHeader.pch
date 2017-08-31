@@ -1,0 +1,87 @@
+//
+//  PrefixHeader.pch
+//  HJweibo
+//
+//  Created by Jermy on 2017/6/13.
+//  Copyright © 2017年 Jermy. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import "HJGloable variable.h"
+#import <SVProgressHUD.h>
+#import "UIBarButtonItem+HJButton.h"
+#import <AFNetworking.h>
+//#import <MJRefresh.h>
+#import "HJAccountModel.h"
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
+#import "UIImage+HJExtension.h"
+#import "UIImageView+HJExtension.h"
+#import "HJTools.h"
+#import "HJCalculate.h"
+#import "HJEmotionModel.h"
+#import "HJSQLiteManager.h"
+#import "HJURLInfoModel.h"
+#import <MJRefresh/MJRefresh.h>
+
+#ifdef __OBJC__
+
+#ifdef DEBUG
+
+#define CLog(format, ...)  NSLog(format, ## __VA_ARGS__)
+#define NSLog(FORMAT, ...) printf("%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+
+#define HJLog(...) NSLog(__VA_ARGS__)
+#else
+#define HJLog(...)
+#endif
+
+#endif
+
+typedef NS_ENUM(NSInteger, HJRichTextType){
+    HJRichTextTypeEmoji = 0,        //emoji表情
+    HJRichTextTypeHyperlink    //超链接
+};
+
+#define ScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#define ScreenHeight ([UIScreen mainScreen].bounds.size.height)
+
+#define HJMargin    10
+//多张图片的宽度
+#define ImageViewW  ((ScreenWidth - HJMargin * 4) / 3.0)
+
+//单张图片的宽度
+#define SingalImageViewW ((ScreenWidth - HJMargin * 2) / 2.0)
+
+//微博字体大小
+#define WeiboContentFontSize    16
+//转发微博字体大小
+#define RetweetWeiboContentFontSize    16
+
+//页面类型
+#define PageTypeText        32
+#define PageTypeAudio       33
+#define PageTypeVideo       55  //未找到具体值
+#define PageTypeWeb         41
+
+#define PageWidth   (ScreenWidth - HJMargin * 2)    //微博内容中网页、音频、视频内容的宽度
+#define WebPageHeight  80   //微博内容中网页、音频内容的高度
+
+//微博授权信息的缓存目录
+#define AccountCachePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"account.data"]
+
+//微博表情的数据库目录
+#define EmotionDBPath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"emotion.sqlite"]
+
+//微博表情保存到本地文件
+#define EmotionCachePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"emotion.plist"]
+
+
+#endif 
+/* PrefixHeader_pch */

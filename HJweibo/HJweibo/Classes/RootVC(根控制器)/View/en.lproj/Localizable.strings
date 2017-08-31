@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  HJweibo
+
+  Created by Jermy on 2017/6/12.
+  Copyright © 2017年 Jermy. All rights reserved.
+*/
+"星期一" = "Monday";
+"北京" = "Beijing";
+"晴" = "Sunny";
+"完成" = "finish";
+"故事设置" = "story setting";
+"保存" = "save";

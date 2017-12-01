@@ -7,7 +7,6 @@
 //
 
 #import "HJWebPage.h"
-#import "HJURLInfoImageModel.h"
 
 @interface HJWebPage()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -23,13 +22,13 @@
 {
     _infoModel = infoModel;
     
-    //取出图片尺寸、URL地址
-    HJURLInfoImageModel *imageModel = infoModel.image;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imageModel.url]];
-    
-    //设置文字
-    self.titleLabel.text = infoModel.display_name;
-    self.detailLabel.text = infoModel.ext_summary;
+//    //取出图片尺寸、URL地址
+//    HJURLInfoImageModel *imageModel = infoModel.image;
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imageModel.url]];
+//    
+//    //设置文字
+//    self.titleLabel.text = infoModel.display_name;
+//    self.detailLabel.text = infoModel.ext_summary;
 }
 
 @end

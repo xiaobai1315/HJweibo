@@ -8,6 +8,7 @@
 
 #import "HJTools.h"
 #import "HJGetImageSize.h"
+#import <time.h>
 
 @implementation HJTools
 {
@@ -66,6 +67,73 @@ static HJTools *_instance;
     NSRange sourceRange = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
     
     return [source substringWithRange:sourceRange];
+}
+
+//获取微博发布时间,转换成 刚刚 几分钟前 几个小时前 形式 通过C的方式，比NSDateFormatter效率要快
+// Tue Jun 27 09:36:54 +0800 2017
+-(NSString *)convertTime:(NSString *)publishTime
+{
+    struct tm tm;
+    const char *format = "%a %b %d %H:%M:%S %z %Y";
+    strptime([publishTime cStringUsingEncoding:NSUTF8StringEncoding], format, &tm);
+    
+    tm.tm_isdst = -1;
+    time_t time = mktime(&tm);
+    
+    //获取微博发布时间到1970年的时间间隔
+    //    NSTimeInterval publishInteval = time + [[NSTimeZone localTimeZone] secondsFromGMT];
+    NSTimeInterval publishInteval = time;
+    
+    //获取本地时间到1970年的时间间隔
+    NSTimeInterval currentInteval = [[NSDate date] timeIntervalSince1970];
+    
+    //获取发布时间到现在的秒数
+    NSTimeInterval interval = currentInteval - publishInteval;
+    
+    NSString *result = @"";
+    NSInteger tempTime = 0;
+    //1分钟之内
+    if (interval < WBMINTUE) {
+        
+        result = @"刚刚";
+    }
+    
+    //1小时之内
+    else if ((interval >= WBMINTUE) && (interval < WBHOUR)) {
+        
+        tempTime = interval / WBMINTUE;
+        result = [NSString stringWithFormat:@"%zd分钟前", tempTime];
+    }
+    
+    //1天之内
+    else if ((interval >= WBHOUR) && (interval < WBDAY)){
+        
+        tempTime = interval / WBHOUR;
+        result = [NSString stringWithFormat:@"%zd小时前", tempTime];
+    }
+    
+    //1个月之内
+    else if ((interval >= WBDAY) && (interval < WBMONTH)){
+        
+        tempTime = interval / WBDAY;
+        result = [NSString stringWithFormat:@"%zd天前", tempTime];
+    }
+    
+    //1年之内
+    else if ((interval >= WBMONTH) && (interval < WBYEAR)){
+        
+        tempTime = interval / WBMONTH;
+        result = [NSString stringWithFormat:@"%zd个月前", tempTime];
+    }
+    
+    //n年前
+    else{
+        
+        tempTime = interval / WBYEAR;
+        result = [NSString stringWithFormat:@"%zd年前", tempTime];
+    }
+    
+    return result;
 }
 
 //获取微博发布时间,转换成 刚刚 几分钟前 几个小时前 形式

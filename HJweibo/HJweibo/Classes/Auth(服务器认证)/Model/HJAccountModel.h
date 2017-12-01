@@ -18,6 +18,8 @@
 
 @property(nonatomic, assign)long long uid;
 
+@property (nonatomic, assign)BOOL isRealName;
+
 -(instancetype)initAccountWithDict:(NSDictionary *)dict;
 +(instancetype)accountWithDict:(NSDictionary *)dict;
 @end

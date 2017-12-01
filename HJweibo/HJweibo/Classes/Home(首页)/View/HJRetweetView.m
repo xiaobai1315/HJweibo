@@ -9,7 +9,6 @@
 #import "HJRetweetView.h"
 #import "HJGraphicsView.h"
 #import "HJWebPage.h"
-#import "HJStatus.h"
 
 @interface HJRetweetView()
 

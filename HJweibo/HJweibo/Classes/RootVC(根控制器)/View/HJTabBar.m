@@ -26,6 +26,9 @@
     //按钮的宽度和高度
     CGFloat btnW = self.frame.size.width / 5.0;
     CGFloat btnH = self.frame.size.height;
+    if(iPhoneX){
+        btnH = btnH - iPhoneXBottomPadding;
+    }
     CGFloat btnY = 0;
     
     for(UIView *view in self.subviews){

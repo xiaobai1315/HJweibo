@@ -7,7 +7,6 @@
 //
 
 #import "HJGraphicsView.h"
-#import "HJStatus.h"
 
 @interface HJGraphicsView()<CAAnimationDelegate>
 

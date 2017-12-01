@@ -18,6 +18,9 @@
 //获取微博发布时间,转换成 刚刚 几分钟前 几个小时前 形式
 -(NSString *)getPublishTime:(NSString *)publishTime;
 
+//采用C的函数转换时间，效率比NSDateFormat快
+-(NSString *)convertTime:(NSString *)publishTime;
+
 // 根据图片url获取图片尺寸
 +(CGSize)getImageSizeWithURL:(id)imageURL;
 

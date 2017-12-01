@@ -7,7 +7,6 @@
 //
 
 #import "HJWeiboTableViewCell.h"
-#import "HJStatus.h"
 #import "HJGraphicsView.h"
 #import "HJRetweetView.h"
 #import "HJWebPage.h"
@@ -98,7 +97,7 @@
     self.publishPlatform.text = [[HJTools shareManager] getPlatformSource:status.source];
     
     //获取微博发布时间
-    self.publishTimeLabel.text = [[HJTools shareManager] getPublishTime:status.created_at];
+    self.publishTimeLabel.text = [[HJTools shareManager] convertTime:status.created_at];
     
     //设置按钮标题
     [self.retweetBtn setTitle:[NSString stringWithFormat:@"%zd", status.reposts_count] forState:UIControlStateNormal];
@@ -161,88 +160,88 @@
 //将文字转换成带emotion表情的富文本
 -(void)setWeiboContentWithText:(NSString *)text
 {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-
-        //去掉文本中的http连接地址
-        NSString *content = [[HJTools shareManager] deleteHttpStr:text];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.contentLabel.text = content;
-        });
-        
-        NSMutableAttributedString *resultAttributeString = [[NSMutableAttributedString alloc] initWithString:content];
-        
-        //替换超链接文本
-        NSArray *array = [self getRichTextRange:content withType:HJRichTextTypeHyperlink];
-        if(array.count != 0){
-            
-            for(NSValue *value in array){
-                
-                NSRange range = value.rangeValue;
-                
-                [resultAttributeString addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: range];
-                [resultAttributeString addAttribute:NSLinkAttributeName value:@"http://www.baidu.com" range:range];
-            }
-        }
-        
-        //替换emoji表情
-        NSArray *emotions = [self getRichTextRange:content withType:HJRichTextTypeEmoji];
-        if(emotions.count != 0){
-         
-            //从缓存中取出emotion表情对应的图片的URL地址
-            NSArray *cacheArray = [NSArray arrayWithContentsOfFile:EmotionCachePath];
-            NSArray *emotionArr = [HJEmotionModel mj_objectArrayWithKeyValuesArray:cacheArray];
-            
-            for(NSInteger i = emotions.count - 1; i >= 0; i--){
-                
-                NSValue *value = emotions[i];
-                NSRange emotionRange = value.rangeValue;
-                
-                //获取emotion表情字符串
-                NSString *emotionStr = [content substringWithRange:emotionRange];
-                NSString *emotionUrl = @"";
-                
-                for(HJEmotionModel *model in emotionArr){
-                    if([model.value isEqualToString:emotionStr]){
-                        emotionUrl = model.url;
-                        break;
-                    }
-                }
-                
-                //判断emotion地址是否为空
-                if(emotionUrl.length == 0){
-                    
-                    continue;
-                }
-                
-                //图片地址前加上http
-                emotionUrl = [NSString stringWithFormat:@"%@", emotionUrl];
-                
-                //下载图片
-                [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:emotionUrl] options:SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                    
-                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                    
-                    //创建图片附件
-                    NSTextAttachment *attach = [[NSTextAttachment alloc] init];
-                    attach.image = image;
-                    attach.bounds = CGRectMake(0, 0, 15, 15);
-                    
-                    //创建emotion表情富文本
-                    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
-                    
-                    //替换emotion表情
-                    [resultAttributeString replaceCharactersInRange:emotionRange withAttributedString:attrString];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        self.contentLabel.attributedText = resultAttributeString;
-                    });
-                    
-                }];
-            }
-        }
-    });
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//
+//        //去掉文本中的http连接地址
+//        NSString *content = [[HJTools shareManager] deleteHttpStr:text];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            self.contentLabel.text = content;
+//        });
+//        
+//        NSMutableAttributedString *resultAttributeString = [[NSMutableAttributedString alloc] initWithString:content];
+//        
+//        //替换超链接文本
+//        NSArray *array = [self getRichTextRange:content withType:HJRichTextTypeHyperlink];
+//        if(array.count != 0){
+//            
+//            for(NSValue *value in array){
+//                
+//                NSRange range = value.rangeValue;
+//                
+//                [resultAttributeString addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: range];
+//                [resultAttributeString addAttribute:NSLinkAttributeName value:@"http://www.baidu.com" range:range];
+//            }
+//        }
+//        
+//        //替换emoji表情
+//        NSArray *emotions = [self getRichTextRange:content withType:HJRichTextTypeEmoji];
+//        if(emotions.count != 0){
+//         
+//            //从缓存中取出emotion表情对应的图片的URL地址
+//            NSArray *cacheArray = [NSArray arrayWithContentsOfFile:EmotionCachePath];
+//            NSArray *emotionArr = [HJEmotionModel mj_objectArrayWithKeyValuesArray:cacheArray];
+//            
+//            for(NSInteger i = emotions.count - 1; i >= 0; i--){
+//                
+//                NSValue *value = emotions[i];
+//                NSRange emotionRange = value.rangeValue;
+//                
+//                //获取emotion表情字符串
+//                NSString *emotionStr = [content substringWithRange:emotionRange];
+//                NSString *emotionUrl = @"";
+//                
+//                for(HJEmotionModel *model in emotionArr){
+//                    if([model.value isEqualToString:emotionStr]){
+//                        emotionUrl = model.url;
+//                        break;
+//                    }
+//                }
+//                
+//                //判断emotion地址是否为空
+//                if(emotionUrl.length == 0){
+//                    
+//                    continue;
+//                }
+//                
+//                //图片地址前加上http
+//                emotionUrl = [NSString stringWithFormat:@"%@", emotionUrl];
+//                
+//                //下载图片
+//                [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:emotionUrl] options:SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//                    
+//                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+//                    
+//                    //创建图片附件
+//                    NSTextAttachment *attach = [[NSTextAttachment alloc] init];
+//                    attach.image = image;
+//                    attach.bounds = CGRectMake(0, 0, 15, 15);
+//                    
+//                    //创建emotion表情富文本
+//                    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
+//                    
+//                    //替换emotion表情
+//                    [resultAttributeString replaceCharactersInRange:emotionRange withAttributedString:attrString];
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        
+//                        self.contentLabel.attributedText = resultAttributeString;
+//                    });
+//                    
+//                }];
+//            }
+//        }
+//    });
 }
 
 //获取文本中的emotion表情的range，emotion可能存在多个

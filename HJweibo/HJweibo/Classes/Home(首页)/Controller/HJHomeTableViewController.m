@@ -9,7 +9,6 @@
 #import "HJHomeTableViewController.h"
 #import "HJCameraViewController.h"
 #import "HJViewControllerTransition.h"
-#import "HJStatus.h"
 #import "HJWeiboTableViewCell.h"
 
 @interface HJHomeTableViewController ()
@@ -38,15 +37,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    if (iPhoneX) {
+        if (@available(iOS 11.0, *)) {
+            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(iPhoneXTopPadding, 0, 0, 0);
+    }
     
     self.view.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1];
     
     self.tableView.mj_header = [[MJRefreshNormalHeader alloc] init];
-    
     __weak id weakSelf = self;
-    
     self.tableView.mj_header.refreshingBlock = ^{
-      
         [weakSelf requestDataFromServer];
     };
     
@@ -58,7 +62,6 @@
     
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HJWeiboTableViewCell class]) bundle:nil] forCellReuseIdentifier:homeViewWeiboCellID];
-
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -145,20 +148,34 @@
     
     [manager GET:homeTimeline parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
         
         //将微博信息数组转成模型数组
         NSArray *status = responseObject[@"statuses"];
-        self.weiboArr = [HJStatus mj_objectArrayWithKeyValuesArray:status];
+//        self.weiboArr = [HJStatus mj_objectArrayWithKeyValuesArray:status];
+        
+        NSArray *statusArr = [HJStatus mj_objectArrayWithKeyValuesArray:status];
+        if(statusArr.count == 0){
+            [self.tableView.mj_header endRefreshing];
+            return;
+        }
+
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, statusArr.count)];
+        [self.weiboArr insertObjects:statusArr atIndexes:indexSet];
+
+        for (HJStatus *status in self.weiboArr) {
+            //提前计算cell高度和View的frame
+            status.cellHeight;
+        }
         
         //刷新tableView
         [self.tableView reloadData];
-        
         [self.tableView.mj_header endRefreshing];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-        NSLog(@"%@", error.description);
+        [SVProgressHUD showErrorWithStatus:error.description maskType:SVProgressHUDMaskTypeClear];
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 

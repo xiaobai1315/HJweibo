@@ -8,17 +8,17 @@
 
 #import "HJHomeTableViewController.h"
 #import "HJCameraViewController.h"
-#import "HJViewControllerTransition.h"
 #import "HJWeiboTableViewCell.h"
+#import "HJWeiboLayout.h"
 
 @interface HJHomeTableViewController ()
 
 //相机相关
-@property(nonatomic, strong)AVCaptureStillImageOutput *output;
-@property(nonatomic, strong)AVCaptureSession *session;
+@property(nonatomic, strong) AVCaptureStillImageOutput *output;
+@property(nonatomic, strong) AVCaptureSession *session;
 
-@property(nonatomic, strong)NSMutableArray *weiboArr;   //存放微博信息的数组
-
+@property(nonatomic, strong) NSMutableArray *weiboArr;   //存放微博信息的数组
+@property (nonatomic, strong) NSMutableArray *layouts;
 @end
 
 @implementation HJHomeTableViewController
@@ -29,8 +29,15 @@
     if(_weiboArr == nil){
         _weiboArr = [NSMutableArray array];
     }
-    
     return _weiboArr;
+}
+
+-(NSMutableArray *)layouts
+{
+    if(_layouts == nil){
+        _layouts = [NSMutableArray array];
+    }
+    return _layouts;
 }
 
 #pragma mark 初始化
@@ -59,9 +66,6 @@
     
     //添加导航栏按钮
     [self setupBarButtons];
-    
-    //注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HJWeiboTableViewCell class]) bundle:nil] forCellReuseIdentifier:homeViewWeiboCellID];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -85,19 +89,6 @@
     [self.navigationController pushViewController:cameraVC animated:YES];
 }
 
-#pragma mark 转场动画
-
--(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
-{
-    if(operation == UINavigationControllerOperationPop){
-        
-        return [HJViewControllerTransition ViewControllerTransitionWithType:HJViewControllerTransitionTypeDismiss];
-    }else{
-        
-        return [HJViewControllerTransition ViewControllerTransitionWithType:HJViewControllerTransitionTypePresent];
-    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,12 +102,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     HJWeiboTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:homeViewWeiboCellID];
     
-    cell.status = self.weiboArr[indexPath.row];
+    if(cell == nil){
+        cell = [[HJWeiboTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:homeViewWeiboCellID];
+    }
     
-    return cell;
+    
+    return nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,9 +121,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HJWeiboTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    cell.selectedBackgroundView.frame = cell.bounds;
 }
 
 #pragma mark 服务器数据请求
@@ -151,23 +142,22 @@
 //        NSLog(@"%@", responseObject);
         
         //将微博信息数组转成模型数组
-        NSArray *status = responseObject[@"statuses"];
 //        self.weiboArr = [HJStatus mj_objectArrayWithKeyValuesArray:status];
         
-        NSArray *statusArr = [HJStatus mj_objectArrayWithKeyValuesArray:status];
+        NSArray *statusArr = [HJStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         if(statusArr.count == 0){
             [self.tableView.mj_header endRefreshing];
             return;
+        }
+        
+        for(HJStatus *status in statusArr){
+            HJWeiboLayout *layout = [[HJWeiboLayout alloc] initWithStatus:status];
+            [self.layouts addObject:layout];
         }
 
         NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, statusArr.count)];
         [self.weiboArr insertObjects:statusArr atIndexes:indexSet];
 
-        for (HJStatus *status in self.weiboArr) {
-            //提前计算cell高度和View的frame
-            status.cellHeight;
-        }
-        
         //刷新tableView
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];

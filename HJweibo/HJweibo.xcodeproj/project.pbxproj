@@ -27,28 +27,22 @@
 		4A4E06E61EF1150400572304 /* HJAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06E51EF1150400572304 /* HJAccountModel.m */; };
 		4A4E06EE1EF1278000572304 /* HJNewFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06EC1EF1278000572304 /* HJNewFeatureViewController.m */; };
 		4A4E06EF1EF1278000572304 /* HJNewFeatureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E06ED1EF1278000572304 /* HJNewFeatureViewController.xib */; };
-		4A5CE1BF1F00EFE40055308B /* HJWeiboTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE1BD1F00EFE40055308B /* HJWeiboTableViewCell.m */; };
-		4A5CE1C01F00EFE40055308B /* HJWeiboTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A5CE1BE1F00EFE40055308B /* HJWeiboTableViewCell.xib */; };
 		4A5CE3061F024F2D0055308B /* UIImage+HJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE3051F024F2D0055308B /* UIImage+HJExtension.m */; };
 		4A5CE3091F0254780055308B /* UIImageView+HJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE3081F0254780055308B /* UIImageView+HJExtension.m */; };
-		4A5CE30F1F0357210055308B /* HJGraphicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE30E1F0357210055308B /* HJGraphicsView.m */; };
 		4A5CE3161F0358430055308B /* HJTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE3151F0358430055308B /* HJTools.m */; };
 		4A5CE3191F035DCF0055308B /* HJCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE3181F035DCF0055308B /* HJCalculate.m */; };
 		4A5FE2A21EF2374B0039693C /* UIBarButtonItem+HJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5FE2A11EF2374B0039693C /* UIBarButtonItem+HJButton.m */; };
 		4A5FE2AD1EF26C160039693C /* HJCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5FE2AB1EF26C160039693C /* HJCameraViewController.m */; };
-		4AA294C41EFA0B9500CD6BFC /* HJViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA294C31EFA0B9500CD6BFC /* HJViewControllerTransition.m */; };
 		4AA294CC1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA294CB1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m */; };
 		4AA294CF1EFCED7000CD6BFC /* HJCameraShowPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA294CE1EFCED7000CD6BFC /* HJCameraShowPhotoView.m */; };
-		4AA593951F0C820700E73A43 /* HJRetweetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AA593941F0C820700E73A43 /* HJRetweetView.xib */; };
 		4AA5939E1F0CD03500E73A43 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA5939D1F0CD03500E73A43 /* libsqlite3.tbd */; };
 		4AA593A11F0CD07200E73A43 /* HJSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA593A01F0CD07200E73A43 /* HJSQLiteManager.m */; };
 		4ACA17681E665B27008FC27C /* HJweiboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA17671E665B27008FC27C /* HJweiboTests.m */; };
 		4ACA17731E665B27008FC27C /* HJweiboUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA17721E665B27008FC27C /* HJweiboUITests.m */; };
+		4AD903B11FD4F29B009E631C /* HJWeiboTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD903B01FD4F29B009E631C /* HJWeiboTableViewCell.m */; };
+		4AD903B41FD51143009E631C /* HJWeiboLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD903B31FD51143009E631C /* HJWeiboLayout.m */; };
 		4ADC26EF1FD14EA0003694F4 /* HJWeiboModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC26EE1FD14EA0003694F4 /* HJWeiboModel.m */; };
-		4AE5E6FB1F21CA18005F541C /* HJWebPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5E6FA1F21CA18005F541C /* HJWebPage.m */; };
-		4AE5E6FD1F21CA27005F541C /* HJWebPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5E6FC1F21CA27005F541C /* HJWebPage.xib */; };
 		4AE85EBF1F17531100F0216F /* HJGetImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE85EBE1F17531100F0216F /* HJGetImageSize.m */; };
-		AFAA0FA71F0623AA004BA950 /* HJRetweetView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAA0FA61F0623AA004BA950 /* HJRetweetView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,15 +97,10 @@
 		4A4E06EB1EF1278000572304 /* HJNewFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJNewFeatureViewController.h; path = "NewFeature(新特性)/Controller/HJNewFeatureViewController.h"; sourceTree = "<group>"; };
 		4A4E06EC1EF1278000572304 /* HJNewFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HJNewFeatureViewController.m; path = "NewFeature(新特性)/Controller/HJNewFeatureViewController.m"; sourceTree = "<group>"; };
 		4A4E06ED1EF1278000572304 /* HJNewFeatureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HJNewFeatureViewController.xib; path = "NewFeature(新特性)/Controller/HJNewFeatureViewController.xib"; sourceTree = "<group>"; };
-		4A5CE1BC1F00EFE40055308B /* HJWeiboTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJWeiboTableViewCell.h; sourceTree = "<group>"; };
-		4A5CE1BD1F00EFE40055308B /* HJWeiboTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJWeiboTableViewCell.m; sourceTree = "<group>"; };
-		4A5CE1BE1F00EFE40055308B /* HJWeiboTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJWeiboTableViewCell.xib; sourceTree = "<group>"; };
 		4A5CE3041F024F2D0055308B /* UIImage+HJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HJExtension.h"; sourceTree = "<group>"; };
 		4A5CE3051F024F2D0055308B /* UIImage+HJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HJExtension.m"; sourceTree = "<group>"; };
 		4A5CE3071F0254780055308B /* UIImageView+HJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HJExtension.h"; sourceTree = "<group>"; };
 		4A5CE3081F0254780055308B /* UIImageView+HJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HJExtension.m"; sourceTree = "<group>"; };
-		4A5CE30D1F0357210055308B /* HJGraphicsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJGraphicsView.h; sourceTree = "<group>"; };
-		4A5CE30E1F0357210055308B /* HJGraphicsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJGraphicsView.m; sourceTree = "<group>"; };
 		4A5CE3141F0358430055308B /* HJTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTools.h; sourceTree = "<group>"; };
 		4A5CE3151F0358430055308B /* HJTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJTools.m; sourceTree = "<group>"; };
 		4A5CE3171F035DCF0055308B /* HJCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCalculate.h; sourceTree = "<group>"; };
@@ -120,13 +109,10 @@
 		4A5FE2A11EF2374B0039693C /* UIBarButtonItem+HJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+HJButton.m"; sourceTree = "<group>"; };
 		4A5FE2AA1EF26C160039693C /* HJCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCameraViewController.h; sourceTree = "<group>"; };
 		4A5FE2AB1EF26C160039693C /* HJCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCameraViewController.m; sourceTree = "<group>"; };
-		4AA294C21EFA0B9500CD6BFC /* HJViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJViewControllerTransition.h; sourceTree = "<group>"; };
-		4AA294C31EFA0B9500CD6BFC /* HJViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJViewControllerTransition.m; sourceTree = "<group>"; };
 		4AA294CA1EFA202C00CD6BFC /* HJCameraSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCameraSettingTableViewController.h; sourceTree = "<group>"; };
 		4AA294CB1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCameraSettingTableViewController.m; sourceTree = "<group>"; };
 		4AA294CD1EFCED7000CD6BFC /* HJCameraShowPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCameraShowPhotoView.h; sourceTree = "<group>"; };
 		4AA294CE1EFCED7000CD6BFC /* HJCameraShowPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCameraShowPhotoView.m; sourceTree = "<group>"; };
-		4AA593941F0C820700E73A43 /* HJRetweetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJRetweetView.xib; sourceTree = "<group>"; };
 		4AA5939D1F0CD03500E73A43 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4AA5939F1F0CD07200E73A43 /* HJSQLiteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJSQLiteManager.h; sourceTree = "<group>"; };
 		4AA593A01F0CD07200E73A43 /* HJSQLiteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJSQLiteManager.m; sourceTree = "<group>"; };
@@ -137,18 +123,17 @@
 		4ACA176E1E665B27008FC27C /* HJweiboUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HJweiboUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ACA17721E665B27008FC27C /* HJweiboUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJweiboUITests.m; sourceTree = "<group>"; };
 		4ACA17741E665B27008FC27C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD903AF1FD4F29B009E631C /* HJWeiboTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HJWeiboTableViewCell.h; sourceTree = "<group>"; };
+		4AD903B01FD4F29B009E631C /* HJWeiboTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJWeiboTableViewCell.m; sourceTree = "<group>"; };
+		4AD903B21FD51143009E631C /* HJWeiboLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HJWeiboLayout.h; sourceTree = "<group>"; };
+		4AD903B31FD51143009E631C /* HJWeiboLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJWeiboLayout.m; sourceTree = "<group>"; };
 		4ADC26ED1FD14EA0003694F4 /* HJWeiboModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HJWeiboModel.h; sourceTree = "<group>"; };
 		4ADC26EE1FD14EA0003694F4 /* HJWeiboModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJWeiboModel.m; sourceTree = "<group>"; };
-		4AE5E6F91F21CA18005F541C /* HJWebPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJWebPage.h; sourceTree = "<group>"; };
-		4AE5E6FA1F21CA18005F541C /* HJWebPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJWebPage.m; sourceTree = "<group>"; };
-		4AE5E6FC1F21CA27005F541C /* HJWebPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJWebPage.xib; sourceTree = "<group>"; };
 		4AE85EBD1F17531100F0216F /* HJGetImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJGetImageSize.h; sourceTree = "<group>"; };
 		4AE85EBE1F17531100F0216F /* HJGetImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJGetImageSize.m; sourceTree = "<group>"; };
 		6577139E8E439E100F6427AC /* Pods-HJweibo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJweibo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HJweibo/Pods-HJweibo.release.xcconfig"; sourceTree = "<group>"; };
 		8075358DFAE90B67D299F381 /* libPods-HJweibo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HJweibo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E37BB0502CFF6959A7314F3 /* Pods-HJweibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJweibo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HJweibo/Pods-HJweibo.debug.xcconfig"; sourceTree = "<group>"; };
-		AFAA0FA51F0623AA004BA950 /* HJRetweetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJRetweetView.h; sourceTree = "<group>"; };
-		AFAA0FA61F0623AA004BA950 /* HJRetweetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJRetweetView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,8 +283,8 @@
 			children = (
 				4ADC26ED1FD14EA0003694F4 /* HJWeiboModel.h */,
 				4ADC26EE1FD14EA0003694F4 /* HJWeiboModel.m */,
-				4AA294C21EFA0B9500CD6BFC /* HJViewControllerTransition.h */,
-				4AA294C31EFA0B9500CD6BFC /* HJViewControllerTransition.m */,
+				4AD903B21FD51143009E631C /* HJWeiboLayout.h */,
+				4AD903B31FD51143009E631C /* HJWeiboLayout.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,17 +292,8 @@
 		4A1C27E61EEAA03F008F5719 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4A5CE1BC1F00EFE40055308B /* HJWeiboTableViewCell.h */,
-				4A5CE1BD1F00EFE40055308B /* HJWeiboTableViewCell.m */,
-				4A5CE1BE1F00EFE40055308B /* HJWeiboTableViewCell.xib */,
-				4A5CE30D1F0357210055308B /* HJGraphicsView.h */,
-				4A5CE30E1F0357210055308B /* HJGraphicsView.m */,
-				4AE5E6F91F21CA18005F541C /* HJWebPage.h */,
-				4AE5E6FA1F21CA18005F541C /* HJWebPage.m */,
-				4AE5E6FC1F21CA27005F541C /* HJWebPage.xib */,
-				AFAA0FA51F0623AA004BA950 /* HJRetweetView.h */,
-				AFAA0FA61F0623AA004BA950 /* HJRetweetView.m */,
-				4AA593941F0C820700E73A43 /* HJRetweetView.xib */,
+				4AD903AF1FD4F29B009E631C /* HJWeiboTableViewCell.h */,
+				4AD903B01FD4F29B009E631C /* HJWeiboTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -783,11 +759,8 @@
 			files = (
 				4A4E06DA1EEFE52500572304 /* HJAuthViewController.xib in Resources */,
 				4A1C280F1EEAA15C008F5719 /* Assets.xcassets in Resources */,
-				4AA593951F0C820700E73A43 /* HJRetweetView.xib in Resources */,
-				4AE5E6FD1F21CA27005F541C /* HJWebPage.xib in Resources */,
 				4A4E06CF1EEE70AC00572304 /* Localizable.strings in Resources */,
 				4A4E06EF1EF1278000572304 /* HJNewFeatureViewController.xib in Resources */,
-				4A5CE1C01F00EFE40055308B /* HJWeiboTableViewCell.xib in Resources */,
 				4A4E06BF1EEE301700572304 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -864,11 +837,9 @@
 				4A4E06C01EEE301700572304 /* main.m in Sources */,
 				4A1C28061EEAA03F008F5719 /* HJHomeTableViewController.m in Sources */,
 				4A5FE2A21EF2374B0039693C /* UIBarButtonItem+HJButton.m in Sources */,
-				4A5CE1BF1F00EFE40055308B /* HJWeiboTableViewCell.m in Sources */,
 				4AA294CF1EFCED7000CD6BFC /* HJCameraShowPhotoView.m in Sources */,
 				4A4E06EE1EF1278000572304 /* HJNewFeatureViewController.m in Sources */,
 				4AA593A11F0CD07200E73A43 /* HJSQLiteManager.m in Sources */,
-				4AA294C41EFA0B9500CD6BFC /* HJViewControllerTransition.m in Sources */,
 				4A1C28081EEAA03F008F5719 /* HJMessageTableViewController.m in Sources */,
 				4A5CE3161F0358430055308B /* HJTools.m in Sources */,
 				4A4E06BE1EEE301700572304 /* AppDelegate.m in Sources */,
@@ -878,15 +849,14 @@
 				4A4E06E31EF0EC8A00572304 /* HJGloable variable.m in Sources */,
 				4AA294CC1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m in Sources */,
 				4A4E06C61EEE34C600572304 /* HJVisualEffectView.m in Sources */,
-				4AE5E6FB1F21CA18005F541C /* HJWebPage.m in Sources */,
-				4A5CE30F1F0357210055308B /* HJGraphicsView.m in Sources */,
+				4AD903B41FD51143009E631C /* HJWeiboLayout.m in Sources */,
 				4AE85EBF1F17531100F0216F /* HJGetImageSize.m in Sources */,
 				4A1C28051EEAA03F008F5719 /* HJDiscoverTableViewController.m in Sources */,
 				4A4E06E61EF1150400572304 /* HJAccountModel.m in Sources */,
+				4AD903B11FD4F29B009E631C /* HJWeiboTableViewCell.m in Sources */,
 				4A4E06D91EEFE52500572304 /* HJAuthViewController.m in Sources */,
 				4A1C28071EEAA03F008F5719 /* HJMeTableViewController.m in Sources */,
 				4A5CE3061F024F2D0055308B /* UIImage+HJExtension.m in Sources */,
-				AFAA0FA71F0623AA004BA950 /* HJRetweetView.m in Sources */,
 				4A5FE2AD1EF26C160039693C /* HJCameraViewController.m in Sources */,
 				4A1C280C1EEAA03F008F5719 /* HJTabBarController.m in Sources */,
 				4A1C280D1EEAA03F008F5719 /* HJTabBar.m in Sources */,

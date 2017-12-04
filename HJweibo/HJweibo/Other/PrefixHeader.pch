@@ -28,7 +28,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import <Bugly/Bugly.h>
 #import "HJWeiboModel.h"
-
+#import <YYKit.h>
 
 #ifdef __OBJC__
 
@@ -49,24 +49,44 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
     HJRichTextTypeHyperlink    //超链接
 };
 
+/**
+ 屏幕尺寸
+*/
 #define ScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define ScreenHeight ([UIScreen mainScreen].bounds.size.height)
-
 #define iPhoneX ([UIScreen mainScreen].bounds.size.height == 812)
 #define iPhoneXTopPadding 88
 #define iPhoneXBottomPadding 34
 
+/**
+ 间隔
+*/
 #define HJMargin    10
-//多张图片的宽度
-#define ImageViewW  ((ScreenWidth - HJMargin * 4) / 3.0)
 
-//单张图片的宽度
-#define SingalImageViewW ((ScreenWidth - HJMargin * 2) / 2.0)
+/**
+ 图片宽度
+*/
+#define ImageViewW  ((ScreenWidth - HJMargin * 4) / 3.0)    //多张图片的宽度
+#define SingalImageViewW ((ScreenWidth - HJMargin * 2) / 2.0)   //单张图片的宽度
 
-//微博字体大小
-#define WeiboContentFontSize    16
-//转发微博字体大小
-#define RetweetWeiboContentFontSize    16
+/**
+ 字体大小、颜色
+*/
+#define ScreenNameFontSize     13  //昵称字体大小
+#define ScreenNameFontColor    [UIColor blackColor]  //昵称字体大小
+#define SourceFontSize     12  //微博来源字体大小
+#define SourceFontColor    [UIColor grayColor]  //微博来源字体大小
+#define WeiboContentFontSize    16  //微博字体大小
+#define RetweetWeiboContentFontSize    16   //转发微博字体大小
+
+/**
+ 控件的高度、宽度
+*/
+//用户信息
+#define ProfileImageViewHeight 40 //头像的高度和宽度
+#define ProfileVIPImageViewHeight 20 //VIP图片的高度和宽度
+#define ProfileNameLabelHeight 20 //昵称的高度和宽度
+#define ProfileSourceLabelHeight 20 //来源的高度和宽度
 
 //页面类型
 #define PageTypeText        32

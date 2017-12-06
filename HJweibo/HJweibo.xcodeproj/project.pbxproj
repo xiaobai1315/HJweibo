@@ -15,6 +15,7 @@
 		4A1C280C1EEAA03F008F5719 /* HJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C28001EEAA03F008F5719 /* HJTabBarController.m */; };
 		4A1C280D1EEAA03F008F5719 /* HJTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C28041EEAA03F008F5719 /* HJTabBar.m */; };
 		4A1C280F1EEAA15C008F5719 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A1C280E1EEAA15C008F5719 /* Assets.xcassets */; };
+		4A33895D1FD7923100CA8410 /* ResourceWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */; };
 		4A4E06BE1EEE301700572304 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06BB1EEE301700572304 /* AppDelegate.m */; };
 		4A4E06BF1EEE301700572304 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E06BC1EEE301700572304 /* Info.plist */; };
 		4A4E06C01EEE301700572304 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06BD1EEE301700572304 /* main.m */; };
@@ -76,6 +77,7 @@
 		4A1C28031EEAA03F008F5719 /* HJTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTabBar.h; sourceTree = "<group>"; };
 		4A1C28041EEAA03F008F5719 /* HJTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJTabBar.m; sourceTree = "<group>"; };
 		4A1C280E1EEAA15C008F5719 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HJweibo/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ResourceWeibo.bundle; sourceTree = "<group>"; };
 		4A4E06BA1EEE301700572304 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HJweibo/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		4A4E06BB1EEE301700572304 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HJweibo/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		4A4E06BC1EEE301700572304 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HJweibo/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -434,6 +436,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4A33895B1FD7921900CA8410 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		4A4E06E71EF1265700572304 /* NewFeature(新特性) */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				4ACA174C1E665B27008FC27C /* HJweibo */,
+				4A33895B1FD7921900CA8410 /* Source */,
 				4ACA17911E6660D0008FC27C /* Other */,
 				4ACA17661E665B27008FC27C /* HJweiboTests */,
 				4ACA17711E665B27008FC27C /* HJweiboUITests */,
@@ -757,6 +768,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A33895D1FD7923100CA8410 /* ResourceWeibo.bundle in Resources */,
 				4A4E06DA1EEFE52500572304 /* HJAuthViewController.xib in Resources */,
 				4A1C280F1EEAA15C008F5719 /* Assets.xcassets in Resources */,
 				4A4E06CF1EEE70AC00572304 /* Localizable.strings in Resources */,

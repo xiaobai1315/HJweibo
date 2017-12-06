@@ -47,26 +47,13 @@ static HJTools *_instance;
 
 #pragma mark 工具
 
-//获取微博发布平台
-//<a href="http://app.weibo.com/t/feed/6vtZb0" rel="nofollow">微博 weibo.com</a>
--(NSString *)getPlatformSource:(NSString *)source
+-(UIImage *)getWeiboImage:(NSString *)imageName
 {
-    //获取 \> 的位置
-    NSRange startRange = [source rangeOfString:@"\">"];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"ResourceWeibo" ofType:@"bundle"];
     
-    //获取   的位置
-    NSRange endRange = [source rangeOfString:@"</a>"];
+    NSString *imagePath = [bundlePath stringByAppendingPathComponent:imageName];
     
-    //如果没有 \> 或 </a> 标识，返回空
-    if(startRange.length == 0 || endRange.length == 0){
-        
-        return @"";
-    }
-    
-    //获取 发布平台 的位置
-    NSRange sourceRange = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
-    
-    return [source substringWithRange:sourceRange];
+    return [UIImage imageWithContentsOfFile:imagePath];
 }
 
 //获取微博发布时间,转换成 刚刚 几分钟前 几个小时前 形式 通过C的方式，比NSDateFormatter效率要快
@@ -342,53 +329,64 @@ static HJTools *_instance;
     }
 }
 
-//删除文本中的HTTP连接,文本中有可能存在多个http地址
--(NSString *)deleteHttpStr:(NSString *)text
+-(NSString *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern
 {
+    __block NSString *resultStr = @"";
     
-    NSString *temp = text;
+    NSRegularExpression *regular = [[NSRegularExpression alloc] initWithPattern:pattern options:kNilOptions error:nil];
     
-    while (1) {
+    [regular enumerateMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, string.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         
-        NSRange range = [temp rangeOfString:@"http://"];
-        if(range.length == 0){
-            
-            break;
+        NSString *temp = [string substringWithRange:result.range];
+        
+        if(temp.length > 0){
+            resultStr = temp;
+            *stop = YES;
         }
-        
-        temp = [self removeHTTPStr:temp];
+    }];
+    
+    //截取客户端的字符串
+    if((resultStr.length != 0) && [pattern isEqualToString:SourceClientPattern]){
+        resultStr = [resultStr substringWithRange:NSMakeRange(1, (resultStr.length - 2))];
     }
     
-    return temp;
+    return resultStr;
 }
 
--(NSString *)removeHTTPStr:(NSString *)text
-{
-    NSRange range = [text rangeOfString:@"http://"];
-    
-    //截取连接文本,连续取字符，遇到空格停止
-    NSInteger startIndex = range.location + range.length;
-    NSInteger length = 0;
-    
-    for(NSInteger i = 0; i < text.length - startIndex; i++){
-        
-        NSRange subStrRange = NSMakeRange(startIndex + i, 1);
-        
-        NSString *subStr = [text substringWithRange:subStrRange];
-        
-        if([subStr isEqualToString:@" "] || [subStr isEqualToString:@"["]){
-            
-            break;
-        }
-        
-        length++;
-    }
-    
-    //截取连接地址
-    NSRange subStringRange = NSMakeRange(range.location, range.length + length);
-    
-    NSString *newStr = [text stringByReplacingCharactersInRange:subStringRange withString:@""];
-    
-    return newStr;
-}
+/*
+ weibo.app 里面的正则，有兴趣的可以参考下：
+ 
+ HTTP链接 (例如 http://www.weibo.com ):
+ ([hH]ttp[s]{0,1})://[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,4})(:\d+)?(/[a-zA-Z0-9\-~!@#$%^&*+?:_/=<>.',;]*)?
+ ([hH]ttp[s]{0,1})://[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,4})(:\d+)?(/[a-zA-Z0-9\-~!@#$%^&*+?:_/=<>]*)?
+ (?i)https?://[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+([-A-Z0-9a-z_\$\.\+!\*\(\)/,:;@&=\?~#%]*)*
+ ^http?://[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(\/[\w-. \/\?%@&+=\u4e00-\u9fa5]*)?$
+ 
+ 链接 (例如 www.baidu.com/s?wd=test ):
+ ^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+([-A-Z0-9a-z_\$\.\+!\*\(\)/,:;@&=\?~#%]*)*
+ 
+ 邮箱 (例如 sjobs@apple.com ):
+ \b([a-zA-Z0-9%_.+\-]{1,32})@([a-zA-Z0-9.\-]+?\.[a-zA-Z]{2,6})\b
+ \b([a-zA-Z0-9%_.+\-]+)@([a-zA-Z0-9.\-]+?\.[a-zA-Z]{2,6})\b
+ ([a-zA-Z0-9%_.+\-]+)@([a-zA-Z0-9.\-]+?\.[a-zA-Z]{2,6})
+ 
+ 电话号码 (例如 18612345678):
+ ^[1-9][0-9]{4,11}$
+ 
+ At (例如 @王思聪 ):
+ @([\x{4e00}-\x{9fa5}A-Za-z0-9_\-]+)
+ 
+ 话题 (例如 #奇葩说# ):
+ #([^@]+?)#
+ 
+ 表情 (例如 [呵呵] ):
+ \[([^ \[]*?)]
+ 
+ 匹配单个字符 (中英文数字下划线连字符)
+ [\x{4e00}-\x{9fa5}A-Za-z0-9_\-]
+ 
+ 匹配回复 (例如 回复@王思聪: ):
+ \x{56de}\x{590d}@([\x{4e00}-\x{9fa5}A-Za-z0-9_\-]+)(\x{0020}\x{7684}\x{8d5e})?:
+ 
+ */
 @end

@@ -72,21 +72,26 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 /**
  字体大小、颜色
 */
-#define ScreenNameFontSize     13  //昵称字体大小
+#define ScreenNameFontSize     ([UIFont systemFontOfSize:16])  //昵称字体大小
 #define ScreenNameFontColor    [UIColor blackColor]  //昵称字体大小
-#define SourceFontSize     12  //微博来源字体大小
-#define SourceFontColor    [UIColor grayColor]  //微博来源字体大小
-#define WeiboContentFontSize    16  //微博字体大小
-#define RetweetWeiboContentFontSize    16   //转发微博字体大小
+#define SourceFontSize     ([UIFont systemFontOfSize:12])  //微博来源字体大小
+#define SourceFontColor    [UIColor grayColor]  //微博来源字体颜色
+#define SourceAllowClickFontColor    [UIColor blueColor]  //微博来源允许点击的字体颜色
+#define SourceHighlightFontColor [UIColor redColor]  //微博来源高亮字体颜色
+#define WeiboContentFontSize    ([UIFont systemFontOfSize:16])  //微博字体大小
+#define RetweetWeiboContentFontSize    ([UIFont systemFontOfSize:16])   //转发微博字体大小
 
 /**
  控件的高度、宽度
 */
 //用户信息
-#define ProfileImageViewHeight 40 //头像的高度和宽度
-#define ProfileVIPImageViewHeight 20 //VIP图片的高度和宽度
-#define ProfileNameLabelHeight 20 //昵称的高度和宽度
-#define ProfileSourceLabelHeight 20 //来源的高度和宽度
+#define ProfileViewHeight   40  //用户信息View的高度
+#define ProfileImageViewHeight 40 //头像的高度
+#define ProfileVIPImageViewHeight 20 //VIP图片的高度
+#define ProfileNameLabelHeight 20 //昵称的高度
+#define ProfileNameLabelWidth 200 //昵称的宽度
+#define ProfileSourceLabelHeight 20 //来源的高度
+#define ProfileSourceLabelWidth (ScreenWidth - ProfileImageViewHeight - HJMargin * 3) //来源的宽度
 
 //页面类型
 #define PageTypeText        32
@@ -111,6 +116,11 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 #define WBDAY (60 * 60 * 24)    //天
 #define WBMONTH (60 * 60 * 24 * 30) //月
 #define WBYEAR (60 * 60 * 24 * 30 *12)  //年
+
+//微博来源中的http地址
+#define SourceUrlPattern (@"([hH]ttp[s]{0,1})://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\-~!@#$%^&*+?:_/=<>.',;]*)?")
+//微博来源中的客户端信息
+#define SourceClientPattern (@">.+<")
 
 #endif 
 /* PrefixHeader_pch */

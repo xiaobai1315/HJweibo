@@ -12,10 +12,9 @@
 
 //用户信息View
 @interface HJWeiboProfileView : UIView
-@property (nonatomic, weak) UIImageView *profileImageView;//头像
-@property (nonatomic, weak) UIImageView *vipImageView;//VIP图标
-@property (nonatomic, weak) UILabel *profileLabel;//用户昵称
-@property (nonatomic, weak) UILabel *sourceLabel;//发布时间、来源
+@property (nonatomic, strong) UIImageView *profileImageView;//头像
+@property (nonatomic, strong) YYLabel *screenNameLabel;//用户昵称
+@property (nonatomic, strong) YYLabel *sourceLabel;//发布时间、来源
 @property (nonatomic, strong) HJWeiboLayout *layout;
 @end
 

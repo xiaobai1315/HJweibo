@@ -17,20 +17,13 @@
 @property(nonatomic, strong) AVCaptureStillImageOutput *output;
 @property(nonatomic, strong) AVCaptureSession *session;
 
-@property(nonatomic, strong) NSMutableArray *weiboArr;   //存放微博信息的数组
+//@property(nonatomic, strong) NSMutableArray *weiboArr;   //存放微博信息的数组
 @property (nonatomic, strong) NSMutableArray *layouts;
 @end
 
 @implementation HJHomeTableViewController
 
 #pragma mark 懒加载
--(NSMutableArray *)weiboArr
-{
-    if(_weiboArr == nil){
-        _weiboArr = [NSMutableArray array];
-    }
-    return _weiboArr;
-}
 
 -(NSMutableArray *)layouts
 {
@@ -45,21 +38,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (iPhoneX) {
-        if (@available(iOS 11.0, *)) {
-            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
-        
-        self.tableView.contentInset = UIEdgeInsetsMake(iPhoneXTopPadding, 0, 0, 0);
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
+    self.tableView.contentInset = UIEdgeInsetsMake(iPhoneXTopPadding, 0, 0, 0);
     
     self.view.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1];
     
-    self.tableView.mj_header = [[MJRefreshNormalHeader alloc] init];
-    __weak id weakSelf = self;
-    self.tableView.mj_header.refreshingBlock = ^{
-        [weakSelf requestDataFromServer];
-    };
+//    self.tableView.mj_header = [[MJRefreshNormalHeader alloc] init];
+//    __weak id weakSelf = self;
+//    self.tableView.mj_header.refreshingBlock = ^{
+//        [weakSelf requestDataFromServer];
+//    };
     
     //去掉cell与cell之间的分隔样式
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -70,7 +60,9 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView.mj_header beginRefreshing];
+//    [self.tableView.mj_header beginRefreshing];
+    
+    [self requestDataFromServer];
 }
 
 //添加导航栏按钮
@@ -98,7 +90,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.weiboArr.count;
+    return self.layouts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -108,15 +100,15 @@
         cell = [[HJWeiboTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:homeViewWeiboCellID];
     }
     
+    cell.layout = self.layouts[indexPath.row];
     
-    return nil;
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HJStatus *status = self.weiboArr[indexPath.row];
-        
-    return status.cellHeight;
+    HJWeiboLayout *layout = self.layouts[indexPath.row];
+    return layout.cellHeight;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -142,22 +134,11 @@
 //        NSLog(@"%@", responseObject);
         
         //将微博信息数组转成模型数组
-//        self.weiboArr = [HJStatus mj_objectArrayWithKeyValuesArray:status];
-        
-        NSArray *statusArr = [HJStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-        if(statusArr.count == 0){
-            [self.tableView.mj_header endRefreshing];
-            return;
-        }
-        
-        for(HJStatus *status in statusArr){
-            HJWeiboLayout *layout = [[HJWeiboLayout alloc] initWithStatus:status];
+        NSArray *dataArr = responseObject[@"statuses"];
+        for(id data in dataArr){
+            HJWeiboLayout *layout = [[HJWeiboLayout alloc] initWithStatus:[HJStatus modelWithJSON:data]];
             [self.layouts addObject:layout];
         }
-
-        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, statusArr.count)];
-        [self.weiboArr insertObjects:statusArr atIndexes:indexSet];
-
         //刷新tableView
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];

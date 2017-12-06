@@ -12,9 +12,6 @@
 
 +(instancetype)shareManager;
 
-//获取微博发布平台
--(NSString *)getPlatformSource:(NSString *)source;
-
 //获取微博发布时间,转换成 刚刚 几分钟前 几个小时前 形式
 -(NSString *)getPublishTime:(NSString *)publishTime;
 
@@ -24,6 +21,9 @@
 // 根据图片url获取图片尺寸
 +(CGSize)getImageSizeWithURL:(id)imageURL;
 
-//删除文本中的HTTP连接
--(NSString *)deleteHttpStr:(NSString *)text;
+//获取微博bundle里面的图片
+-(UIImage *)getWeiboImage:(NSString *)imageName;
+
+//根据正则表达式获取字符串
+-(NSString *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern;
 @end

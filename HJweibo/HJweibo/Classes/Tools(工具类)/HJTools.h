@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface HJTools : NSObject
 
 +(instancetype)shareManager;
@@ -25,5 +24,8 @@
 -(UIImage *)getWeiboImage:(NSString *)imageName;
 
 //根据正则表达式获取字符串
--(NSString *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern;
+-(NSArray *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern;
+
+//处理圆形图片
+-(UIImage *)circleImageWithSize:(CGSize)size image:(UIImage *)image;
 @end

@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+//微博文本中需要替换的URL、emoji、用户名等链接信息
+@interface HJLinkModel : NSObject
+@property (nonatomic, copy) NSString *linkText; //链接的文本
+@property (nonatomic, assign) NSRange linkRange;    //链接所在的文本中的位置
+
++(instancetype)linkModelWithText:(NSString *)text range:(NSRange)range;
+@end
+
 /**
  用户信息模型
  */

@@ -24,6 +24,7 @@
     _profileHeight = 0;
     
     [self layoutProfile];
+    [self layoutText];
     
     _cellHeight = 200;
 }
@@ -68,8 +69,21 @@
     
     //发布来源
     NSString *source = _status.source;
-    NSString *sourceUrl = [[HJTools shareManager] regularExpressionWithString:source pattern:SourceUrlPattern];
-    NSString *sourceClient = [[HJTools shareManager] regularExpressionWithString:source pattern:SourceClientPattern];
+    NSString *sourceUrl = @"";
+    NSArray *sourceUrlArr = [[HJTools shareManager] regularExpressionWithString:source pattern:WBUrlPattern];
+    if(sourceUrlArr.count != 0){
+        sourceUrl = sourceUrlArr[0];
+    }
+    
+    NSString *sourceClient = @"";
+    NSArray *sourceClientArr = [[HJTools shareManager] regularExpressionWithString:source pattern:SourceClientPattern];
+    //截取客户端的字符串
+    if(sourceClientArr.count != 0){
+        sourceClient = sourceClientArr[0];
+    }
+    if(sourceClient.length != 0){
+        sourceClient = [sourceClient substringWithRange:NSMakeRange(1, (sourceClient.length - 2))];
+    }
     
     //如果来源客户端长度为0，只返回时间
     if(sourceClient.length == 0){
@@ -95,6 +109,36 @@
         [_sourceText setTextHighlight:highlight range:highlightRange];
     }
 }
+
+//微博文本
+/*
+ @用户： 翻翻她的微博 你会爱上她@住7楼的天屎姐姐。
+ emoji表情：一分钟学会韩式蛋卷[馋嘴]
+ 链接：不是所有人都有湿气，只有出现了这些信号才是湿邪入体，别盲目去湿[可怜][吃惊]http://t.cn/RjihFco
+ 
+ 需要做的工作：
+ 1、短连接 ：获取文本中的短连接(http:// 开头)，请求服务器获取短连接的信息。一个文本中短连接可能有多个。
+ 短连接为音乐、视频、网页，需要在连接名字前拼接一个表示连接类型的小图片；音乐、视频、网页是否需要添加缩略图？
+ 2、@用户： 以“@”开头的是@某一个用户，通过@后面的文本字段，请求服务获取用户昵称以及用户主页的连接地址；
+ 3、[表情]：[]中的内容为emoji表情，需要转换成对应的表情图片；
+ 
+ */
+-(void)layoutText
+{
+    NSString *text = _status.text;
+    NSLog(@"text = %@", text);
+    //获取文本中的短连接
+    NSArray *shortUrlArr = [[HJTools shareManager] regularExpressionWithString:text pattern:WBUrlPattern];
+    NSLog(@"shortUrlArr = %@", shortUrlArr);
+    //获取文本中的emoji表情
+    NSArray *emojiArr = [[HJTools shareManager] regularExpressionWithString:text pattern:WBContentEmoji];
+    NSLog(@"emojiArr = %@", emojiArr);
+    //获取文本中的@用户
+    NSArray *atUserArr = [[HJTools shareManager] regularExpressionWithString:text pattern:WBContentAtUser];
+    NSLog(@"atUserArr = %@", atUserArr);
+    
+}
+
 
 -(CGSize)boundingRectsize:(NSString *)string size:(CGSize)size attributes:(NSDictionary *)attributes
 {

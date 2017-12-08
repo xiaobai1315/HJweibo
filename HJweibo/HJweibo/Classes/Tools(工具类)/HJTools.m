@@ -47,6 +47,7 @@ static HJTools *_instance;
 
 #pragma mark 工具
 
+//从ResourceWeibo.bundle中取图片
 -(UIImage *)getWeiboImage:(NSString *)imageName
 {
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"ResourceWeibo" ofType:@"bundle"];
@@ -197,6 +198,24 @@ static HJTools *_instance;
     return result;
 }
 
+//处理成圆形图片
+-(UIImage *)circleImageWithSize:(CGSize)size image:(UIImage *)image
+{
+    //处理 CGContextAddPath: invalid context 0x0 的问题
+    if(size.height <= 0 || size.width <= 0){
+        return nil;
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:rect];
+    [path addClip];
+    [image drawInRect:rect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 // 根据图片url获取图片尺寸
 +(CGSize)getImageSizeWithURL:(id)imageURL
 {
@@ -329,28 +348,25 @@ static HJTools *_instance;
     }
 }
 
--(NSString *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern
+//匹配字符串的正则表达式
+-(NSArray *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern
 {
-    __block NSString *resultStr = @"";
-    
     NSRegularExpression *regular = [[NSRegularExpression alloc] initWithPattern:pattern options:kNilOptions error:nil];
+    
+    __block NSMutableArray *linkArray = [NSMutableArray array];
     
     [regular enumerateMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, string.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         
-        NSString *temp = [string substringWithRange:result.range];
+        NSRange range = result.range;
+        NSString *text = [string substringWithRange:range];
         
-        if(temp.length > 0){
-            resultStr = temp;
-            *stop = YES;
+        if(text.length > 0){
+            HJLinkModel *model = [HJLinkModel linkModelWithText:text range:range];
+            [linkArray addObject:model];
         }
     }];
-    
-    //截取客户端的字符串
-    if((resultStr.length != 0) && [pattern isEqualToString:SourceClientPattern]){
-        resultStr = [resultStr substringWithRange:NSMakeRange(1, (resultStr.length - 2))];
-    }
-    
-    return resultStr;
+
+    return linkArray;
 }
 
 /*

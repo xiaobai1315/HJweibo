@@ -16,6 +16,7 @@
 		4A1C280D1EEAA03F008F5719 /* HJTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C28041EEAA03F008F5719 /* HJTabBar.m */; };
 		4A1C280F1EEAA15C008F5719 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A1C280E1EEAA15C008F5719 /* Assets.xcassets */; };
 		4A33895D1FD7923100CA8410 /* ResourceWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */; };
+		4A3389601FD9361E00CA8410 /* HJToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A33895F1FD9361E00CA8410 /* HJToolBarButton.m */; };
 		4A4E06BE1EEE301700572304 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06BB1EEE301700572304 /* AppDelegate.m */; };
 		4A4E06BF1EEE301700572304 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E06BC1EEE301700572304 /* Info.plist */; };
 		4A4E06C01EEE301700572304 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06BD1EEE301700572304 /* main.m */; };
@@ -78,6 +79,8 @@
 		4A1C28041EEAA03F008F5719 /* HJTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJTabBar.m; sourceTree = "<group>"; };
 		4A1C280E1EEAA15C008F5719 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HJweibo/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ResourceWeibo.bundle; sourceTree = "<group>"; };
+		4A33895E1FD9361E00CA8410 /* HJToolBarButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HJToolBarButton.h; sourceTree = "<group>"; };
+		4A33895F1FD9361E00CA8410 /* HJToolBarButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJToolBarButton.m; sourceTree = "<group>"; };
 		4A4E06BA1EEE301700572304 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HJweibo/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		4A4E06BB1EEE301700572304 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HJweibo/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		4A4E06BC1EEE301700572304 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HJweibo/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -296,6 +299,8 @@
 			children = (
 				4AD903AF1FD4F29B009E631C /* HJWeiboTableViewCell.h */,
 				4AD903B01FD4F29B009E631C /* HJWeiboTableViewCell.m */,
+				4A33895E1FD9361E00CA8410 /* HJToolBarButton.h */,
+				4A33895F1FD9361E00CA8410 /* HJToolBarButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -847,6 +852,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4E06C01EEE301700572304 /* main.m in Sources */,
+				4A3389601FD9361E00CA8410 /* HJToolBarButton.m in Sources */,
 				4A1C28061EEAA03F008F5719 /* HJHomeTableViewController.m in Sources */,
 				4A5FE2A21EF2374B0039693C /* UIBarButtonItem+HJButton.m in Sources */,
 				4AA294CF1EFCED7000CD6BFC /* HJCameraShowPhotoView.m in Sources */,

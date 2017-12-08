@@ -21,11 +21,10 @@
 @property (nonatomic, assign) CGFloat profileHeight; //用户信息View的高度
 @property (nonatomic, strong) NSMutableAttributedString *nameText;
 @property (nonatomic, strong) NSMutableAttributedString *sourceText;
-//@property (nonatomic, assign) NSRange highlightRange;   //高亮文字的range
-//@property (nonatomic, copy) NSString *sourceUrl; //点击高亮文字跳转的连接
 
 //发布文本
-@property (nonatomic, assign) CGFloat textHeight;
+@property (nonatomic, assign) CGFloat textHeight;   //文本高度
+@property (nonatomic, strong) NSMutableAttributedString *contentText;//文本内容
 
 //图片
 @property (nonatomic, assign) CGFloat picHeight;

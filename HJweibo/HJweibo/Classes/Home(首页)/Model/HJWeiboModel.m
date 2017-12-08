@@ -8,6 +8,23 @@
 
 #import "HJWeiboModel.h"
 
+@implementation HJLinkModel
+
+-(instancetype)initWithText:(NSString *)text range:(NSRange)range
+{
+    self = [super init];
+    self.linkText = text;
+    self.linkRange = range;
+    return self;
+}
+
++(instancetype)linkModelWithText:(NSString *)text range:(NSRange)range
+{
+    return [[self alloc] initWithText:text range:range];
+}
+
+@end
+
 @implementation HJUserModel
 
 @end

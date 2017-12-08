@@ -29,6 +29,8 @@
 #import <Bugly/Bugly.h>
 #import "HJWeiboModel.h"
 #import <YYKit.h>
+#import "HJToolBarButton.h"
+#import "HJWeiboModel.h"
 
 #ifdef __OBJC__
 
@@ -72,6 +74,8 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 /**
  字体大小、颜色
 */
+#define CustomColor(C,A) ([UIColor colorWithRed:(C) green:(C) blue:(C) alpha:(A)])
+
 #define ScreenNameFontSize     ([UIFont systemFontOfSize:16])  //昵称字体大小
 #define ScreenNameFontColor    [UIColor blackColor]  //昵称字体大小
 #define SourceFontSize     ([UIFont systemFontOfSize:12])  //微博来源字体大小
@@ -79,8 +83,9 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 #define SourceAllowClickFontColor    [UIColor blueColor]  //微博来源允许点击的字体颜色
 #define SourceHighlightFontColor [UIColor redColor]  //微博来源高亮字体颜色
 #define WeiboContentFontSize    ([UIFont systemFontOfSize:16])  //微博字体大小
+#define WeiboContentFontColor [UIColor blackColor]  //微博字体颜色
 #define RetweetWeiboContentFontSize    ([UIFont systemFontOfSize:16])   //转发微博字体大小
-
+#define ToolbarLineColor CustomColor((240.0/255.0),1)   //工具栏分割线
 /**
  控件的高度、宽度
 */
@@ -92,6 +97,9 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 #define ProfileNameLabelWidth 200 //昵称的宽度
 #define ProfileSourceLabelHeight 20 //来源的高度
 #define ProfileSourceLabelWidth (ScreenWidth - ProfileImageViewHeight - HJMargin * 3) //来源的宽度
+
+//工具栏
+#define ToolBarHeight 40    //工具栏高度
 
 //页面类型
 #define PageTypeText        32
@@ -117,10 +125,23 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 #define WBMONTH (60 * 60 * 24 * 30) //月
 #define WBYEAR (60 * 60 * 24 * 30 *12)  //年
 
+//正则表达式
 //微博来源中的http地址
-#define SourceUrlPattern (@"([hH]ttp[s]{0,1})://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\-~!@#$%^&*+?:_/=<>.',;]*)?")
+#define WBUrlPattern (@"([hH]ttp[s]{0,1})://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\-~!@#$%^&*+?:_/=<>.',;]*)?")
 //微博来源中的客户端信息
 #define SourceClientPattern (@">.+<")
+
+//微博文本中的emoji表情
+#define WBContentEmoji (@"\\[.+\\]")
+
+//微博文本中的@用户
+#define WBContentAtUser (@"@([\\x{4e00}-\\x{9fa5}A-Za-z0-9_\\-]+)")
+
+//微博文本中的话题
+#define WBConentTopic (@"#([^@]+?)#")
+
+//微博文本中的回复
+#define WBContentReply (@"\x{56de}\x{590d}@([\x{4e00}-\x{9fa5}A-Za-z0-9_\-]+)(\x{0020}\x{7684}\x{8d5e})?:")
 
 #endif 
 /* PrefixHeader_pch */

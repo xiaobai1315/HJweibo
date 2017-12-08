@@ -30,7 +30,12 @@
 
 //工具栏
 @interface HJWeiboToolbarView : UIView
-
+@property (nonatomic, strong) CALayer *topLine;   //顶部分割线
+@property (nonatomic, strong) CALayer *bottomLine;   //底部分割线
+@property (nonatomic, strong) HJToolBarButton *repostBtn;  //转发按钮
+@property (nonatomic, strong) HJToolBarButton *commentBtn; //评论按钮
+@property (nonatomic, strong) HJToolBarButton *likeBtn;    //点赞按钮
+@property (nonatomic, strong) HJWeiboLayout *layout;
 @end
 
 //微博显示界面
@@ -38,6 +43,7 @@
 
 @property (nonatomic, strong) HJWeiboLayout *layout;
 @property (nonatomic, strong) HJWeiboProfileView *profileView;
+@property (nonatomic, strong) YYLabel *textLabel;   //微博文本
 @property (nonatomic, strong) HJWeiboPicView *picView;
 @property (nonatomic, strong) HJWeiboRetweetView *retweetView;
 @property (nonatomic, strong) HJWeiboToolbarView *toolbarView;

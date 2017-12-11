@@ -28,4 +28,7 @@
 
 //处理圆形图片
 -(UIImage *)circleImageWithSize:(CGSize)size image:(UIImage *)image;
+
+//获取微博授权秘钥
+-(NSString *)getAccessToken;
 @end

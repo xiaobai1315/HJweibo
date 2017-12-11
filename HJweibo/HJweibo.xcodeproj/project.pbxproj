@@ -35,6 +35,7 @@
 		4A5CE3191F035DCF0055308B /* HJCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE3181F035DCF0055308B /* HJCalculate.m */; };
 		4A5FE2A21EF2374B0039693C /* UIBarButtonItem+HJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5FE2A11EF2374B0039693C /* UIBarButtonItem+HJButton.m */; };
 		4A5FE2AD1EF26C160039693C /* HJCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5FE2AB1EF26C160039693C /* HJCameraViewController.m */; };
+		4A73969C1FDE2D27009C2BFA /* HJNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A73969B1FDE2D27009C2BFA /* HJNetRequest.m */; };
 		4AA294CC1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA294CB1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m */; };
 		4AA294CF1EFCED7000CD6BFC /* HJCameraShowPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA294CE1EFCED7000CD6BFC /* HJCameraShowPhotoView.m */; };
 		4AA5939E1F0CD03500E73A43 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA5939D1F0CD03500E73A43 /* libsqlite3.tbd */; };
@@ -114,6 +115,8 @@
 		4A5FE2A11EF2374B0039693C /* UIBarButtonItem+HJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+HJButton.m"; sourceTree = "<group>"; };
 		4A5FE2AA1EF26C160039693C /* HJCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCameraViewController.h; sourceTree = "<group>"; };
 		4A5FE2AB1EF26C160039693C /* HJCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCameraViewController.m; sourceTree = "<group>"; };
+		4A73969A1FDE2D27009C2BFA /* HJNetRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HJNetRequest.h; sourceTree = "<group>"; };
+		4A73969B1FDE2D27009C2BFA /* HJNetRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJNetRequest.m; sourceTree = "<group>"; };
 		4AA294CA1EFA202C00CD6BFC /* HJCameraSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCameraSettingTableViewController.h; sourceTree = "<group>"; };
 		4AA294CB1EFA202C00CD6BFC /* HJCameraSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCameraSettingTableViewController.m; sourceTree = "<group>"; };
 		4AA294CD1EFCED7000CD6BFC /* HJCameraShowPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCameraShowPhotoView.h; sourceTree = "<group>"; };
@@ -494,6 +497,8 @@
 				4AA593A01F0CD07200E73A43 /* HJSQLiteManager.m */,
 				4AE85EBD1F17531100F0216F /* HJGetImageSize.h */,
 				4AE85EBE1F17531100F0216F /* HJGetImageSize.m */,
+				4A73969A1FDE2D27009C2BFA /* HJNetRequest.h */,
+				4A73969B1FDE2D27009C2BFA /* HJNetRequest.m */,
 			);
 			path = "Tools(工具类)";
 			sourceTree = "<group>";
@@ -859,6 +864,7 @@
 				4A4E06EE1EF1278000572304 /* HJNewFeatureViewController.m in Sources */,
 				4AA593A11F0CD07200E73A43 /* HJSQLiteManager.m in Sources */,
 				4A1C28081EEAA03F008F5719 /* HJMessageTableViewController.m in Sources */,
+				4A73969C1FDE2D27009C2BFA /* HJNetRequest.m in Sources */,
 				4A5CE3161F0358430055308B /* HJTools.m in Sources */,
 				4A4E06BE1EEE301700572304 /* AppDelegate.m in Sources */,
 				4A5CE3091F0254780055308B /* UIImageView+HJExtension.m in Sources */,

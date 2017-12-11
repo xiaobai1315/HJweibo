@@ -47,10 +47,27 @@ static HJTools *_instance;
 
 #pragma mark 工具
 
+//获取微博授权秘钥
+-(NSString *)getAccessToken
+{
+    static NSString *accessToken;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        HJAccountModel *account = [NSKeyedUnarchiver unarchiveObjectWithFile:AccountCachePath];
+        accessToken = account.access_token;
+    });
+    
+    return accessToken;
+}
+
 //从ResourceWeibo.bundle中取图片
 -(UIImage *)getWeiboImage:(NSString *)imageName
 {
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"ResourceWeibo" ofType:@"bundle"];
+    static NSString *bundlePath;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        bundlePath = [[NSBundle mainBundle] pathForResource:@"ResourceWeibo" ofType:@"bundle"];
+    });
     
     NSString *imagePath = [bundlePath stringByAppendingPathComponent:imageName];
     

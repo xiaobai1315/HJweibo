@@ -233,7 +233,7 @@
     
     //微博文本
     _textLabel.frame = CGRectMake(HJMargin, _profileView.bottom + HJMargin, viewW, layout.textHeight);
-//    _textLabel.text = layout
+    _textLabel.attributedText = layout.contentText;
     
     //工具栏
     _toolbarView.frame = CGRectMake(HJMargin, layout.cellHeight - ToolBarHeight - 10, ScreenWidth - HJMargin * 2, ToolBarHeight);

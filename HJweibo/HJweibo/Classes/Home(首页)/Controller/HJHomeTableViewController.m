@@ -10,6 +10,7 @@
 #import "HJCameraViewController.h"
 #import "HJWeiboTableViewCell.h"
 #import "HJWeiboLayout.h"
+#import "HJNetRequest.h"
 
 @interface HJHomeTableViewController ()
 
@@ -121,17 +122,12 @@
 //请求服务器数据
 -(void)requestDataFromServer
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    HJAccountModel *account = [NSKeyedUnarchiver unarchiveObjectWithFile:AccountCachePath];
-    
     NSDictionary *para = @{
-                           @"access_token" : account.access_token
+                           @"access_token" :[[HJTools shareManager] getAccessToken]
                            };
-    
-    [manager GET:homeTimeline parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[HJNetRequest shareInstance] get:homeTimeline parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
         
-//        NSLog(@"%@", responseObject);
+        //        NSLog(@"%@", responseObject);
         
         //将微博信息数组转成模型数组
         NSArray *dataArr = responseObject[@"statuses"];
@@ -142,7 +138,6 @@
         //刷新tableView
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
-        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         [SVProgressHUD showErrorWithStatus:error.description maskType:SVProgressHUDMaskTypeClear];

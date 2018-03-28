@@ -27,6 +27,7 @@
     
     [self layoutProfile];
     [self layoutText];
+    [self layoutToolBar];
     
     _cellHeight += HJMargin + _profileHeight + HJMargin;
     _cellHeight += _textHeight + HJMargin;
@@ -132,72 +133,6 @@
 {
     NSString *text = _status.text;
     
-    /*
-     {
-     urls =     (
-     {
-     annotations =             (
-     );
-     description = "";
-     "last_modified" = 1512964503;
-     result = 1;
-     title = "";
-     transcode = 0;
-     type = 0;
-     "url_long" = "https://s.click.taobao.com/wOkSfWw";
-     "url_short" = "http://t.cn/RT4QgcU";
-     }
-     );
-     }
-     
-     
-     {
-     urls =     (
-     {
-     annotations =             (
-     {
-     "act_status" = 00;
-     "activate_status" = 0;
-     containerid = "";
-     "last_modified" = "Mon Dec 11 11:54:15 CST 2017";
-     object =                     {
-     biz =                         {
-     "biz_id" = "";
-     containerid = "";
-     };
-     "display_name" = "\U5973\U5927\U5b66\U751f\U4fee\U7535\U8111\U88ab\U88c5\U5077\U62cd\U8f6f\U4ef6 \U5168\U5bdd\U5ba4\U5973\U751f\U90fd\U906d\U6b83";
-     id = "2026736001:comos:fypnqvn2885723";
-     image =                         {
-     height = 300;
-     url = "http://n.sinaimg.cn/default/transform/w300h300/20171211/DSyT-fypnsip6559917.png";
-     width = 300;
-     };
-     "object_type" = webpage;
-     summary = "\U5927\U8fde\U4e0019\U5c81\U5973\U5b69\U53bb\U7ef4\U4fee\U7535\U8111\Uff0c\U6ca1\U60f3\U5230\U88ab\U5de5\U7a0b\U5e08\U6697\U4e2d\U690d\U5165\U4e86\U5077\U7aa5\U8f6f\U4ef6\U300212\U67086\U65e5\Uff0c\U5f53\U6c11\U8b66\U627e\U5230\U5979\U65f6\Uff0c\U5973\U5b69\U624d\U53d1\U73b0\Uff0c\U7535\U8111\U6444\U50cf\U5934\U5df2\U88ab\U8fdc\U7a0b\U63a7\U5236\Uff0c\U5973\U751f\U5bdd\U5ba4\U7684\U9690\U79c1\U88ab\U62cd\U6210\U4e86\U89c6\U9891\Uff01";
-     "target_url" = "http://zx.sina.cn/2017-12-11/zx-ifypnqvn2885723.d.html";
-     url = "http://zx.sina.cn/2017-12-11/zx-ifypnqvn2885723.d.html";
-     };
-     "object_domain_id" = 2026736001;
-     "object_id" = "2026736001:comos:fypnqvn2885723";
-     "object_type" = webpage;
-     "safe_status" = 1;
-     "show_status" = 11;
-     timestamp = 1512964455248;
-     uuid = 4183730439621516;
-     }
-     );
-     description = "";
-     "last_modified" = 1512964339;
-     result = 1;
-     title = "";
-     transcode = 0;
-     type = 39;
-     "url_long" = "http://zx.sina.cn/2017-12-11/zx-ifypnqvn2885723.d.html?wm=3049_0028";
-     "url_short" = "http://t.cn/RT4H1uZ";
-     }
-     );
-     }
-     */
     //获取文本中的短连接
     NSArray *shortUrlArr = [[HJTools shareManager] regularExpressionWithString:text pattern:WBUrlPattern];
 //    NSLog(@"shortUrlArr = %@", shortUrlArr);
@@ -226,7 +161,13 @@
 //    NSLog(@"atUserArr = %@", atUserArr);
     
     _contentText = [[NSMutableAttributedString alloc] initWithString:text];
-    _textHeight = 200;
+    _textHeight = [self boundingRectsize:text size:CGSizeMake(ScreenWidth - 20, MAXFLOAT) attributes:@{NSFontAttributeName: WeiboContentFontSize}].height;
+    
+}
+
+-(void) layoutToolBar
+{
+    _toolBarHeight = ToolBarHeight;
 }
 
 

@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, HJRichTextType){
 */
 #define ImageViewW  ((ScreenWidth - HJMargin * 4) / 3.0)    //多张图片的宽度
 #define SingalImageViewW ((ScreenWidth - HJMargin * 2) / 2.0)   //单张图片的宽度
-
+#define SingalImageViewH 200   //单张图片的高度
 /**
  字体大小、颜色
 */

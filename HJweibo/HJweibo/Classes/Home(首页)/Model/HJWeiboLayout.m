@@ -28,10 +28,12 @@
     [self layoutProfile];
     [self layoutText];
     [self layoutToolBar];
+    [self layutImageView];
     
     _cellHeight += HJMargin + _profileHeight + HJMargin;
     _cellHeight += _textHeight + HJMargin;
-    _cellHeight += _toolBarHeight;
+    _cellHeight += _toolBarHeight + HJMargin;
+    _cellHeight += _picHeight + HJMargin;
 }
 
 //计算用户信息
@@ -165,11 +167,35 @@
     
 }
 
+//工具栏
 -(void) layoutToolBar
 {
     _toolBarHeight = ToolBarHeight;
 }
 
+//图片
+-(void) layutImageView
+{
+    NSArray *pics = _status.pic_urls;
+    
+    //没有图片
+    if (pics.count == 0) {
+        _picHeight = 0;
+        
+    }else if (pics.count == 1) {
+        _picHeight = SingalImageViewH;
+        
+    }else {
+        _picHeight = ImageViewW;
+    }
+    
+    NSMutableArray *picArray = [NSMutableArray array];
+    for (NSDictionary *dic in pics) {
+        [picArray addObject:[dic valueForKey:@"thumbnail_pic"]];
+    }
+    _picArray = picArray;
+    
+}
 
 -(CGSize)boundingRectsize:(NSString *)string size:(CGSize)size attributes:(NSDictionary *)attributes
 {

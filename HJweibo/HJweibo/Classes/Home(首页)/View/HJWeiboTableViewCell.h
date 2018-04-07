@@ -20,7 +20,8 @@
 
 //发布的图片
 @interface HJWeiboPicView : UIView
-@property (nonatomic, strong)NSArray *picArray;//图片数组
+@property (nonatomic, strong) HJWeiboLayout *layout;
+@property (nonatomic, strong) NSArray *picArray;//图片数组
 @end
 
 //转发微博

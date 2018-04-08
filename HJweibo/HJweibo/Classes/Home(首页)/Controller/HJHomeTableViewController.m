@@ -125,7 +125,7 @@
     NSDictionary *para = @{
                            @"access_token" :[[HJTools shareManager] getAccessToken]
                            };
-    [[HJNetRequest shareInstance] get:publicTimeline parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[HJNetRequest shareInstance] get:friendTimeline parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
         
         //        NSLog(@"%@", responseObject);
         

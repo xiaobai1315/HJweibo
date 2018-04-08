@@ -29,15 +29,13 @@
     [self layoutText];
     [self layoutToolBar];
     [self layoutImageView];
-//<<<<<<< HEAD
-//=======
-    [self layutImageView];
-//>>>>>>> c090cef23988937b68b9c765ba6435413dfb4152
+    [self layoutRetweetView];
     
     _cellHeight += HJMargin + _profileHeight + HJMargin;
     _cellHeight += _textHeight + HJMargin;
     _cellHeight += _toolBarHeight + HJMargin;
     _cellHeight += _picHeight + HJMargin;
+    _cellHeight += _retweetHeight + HJMargin;
 }
 
 //计算用户信息
@@ -145,15 +143,15 @@
     if(shortUrlArr.count != 0){
         HJLinkModel *model = shortUrlArr[0];
         NSString *link = model.linkText;
-        NSLog(@"text = %@", text);
-        NSLog(@"link = %@", link);
+//        NSLog(@"text = %@", text);
+//        NSLog(@"link = %@", link);
         //获取短连接的信息
         NSDictionary *para = @{
                                @"access_token" : [[HJTools shareManager] getAccessToken],
                                @"url_short" : link
                                };
         [[HJNetRequest shareInstance] get:shortUrlInfo parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSLog(@"%@", responseObject);
+//            NSLog(@"%@", responseObject);
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             
         }];
@@ -171,33 +169,31 @@
     
 }
 
-////图片
-//{
-//    NSArray *imageArr = _status.pic_urls;
-//}
-//
-//=======
-//工具栏
-//>>>>>>> c090cef23988937b68b9c765ba6435413dfb4152
 -(void) layoutToolBar
 {
     _toolBarHeight = ToolBarHeight;
 }
 
 //图片
--(void) layutImageView
+-(void) layoutImageView
 {
     NSArray *pics = _status.pic_urls;
     
     //没有图片
     if (pics.count == 0) {
         _picHeight = 0;
+        _picArray = nil;
+        return;
         
     }else if (pics.count == 1) {
-        _picHeight = SingalImageViewH;
+        _picHeight = ImageViewW;
+        
+    }else if (pics.count == 4){
+        _picHeight = ImageViewW * 2 + HJMargin;
         
     }else {
-        _picHeight = ImageViewW;
+        NSInteger row = pics.count / 3;
+        _picHeight = ImageViewW * row + HJMargin;
     }
     
     NSMutableArray *picArray = [NSMutableArray array];
@@ -206,6 +202,27 @@
     }
     _picArray = picArray;
     
+}
+
+//转发微博
+-(void) layoutRetweetView
+{
+    if (_status.retweeted_status == nil) {
+        _retweetHeight = 0;
+        _retweetPicArray = nil;
+        _retweetPicHeight = 0;
+        _retweetTextHeight = 0;
+        _retweetContentText = nil;
+        return;
+    }
+    
+    NSString *retweetText = _status.retweeted_status.text;
+    retweetText = [NSString stringWithFormat:@"@%@:%@", _status.retweeted_status.user.screen_name, retweetText];
+    _retweetContentText = [[NSAttributedString alloc] initWithString:retweetText attributes:nil];
+    _retweetTextHeight = [self boundingRectsize:retweetText size:CGSizeMake(ScreenWidth - 2 * HJMargin, CGFLOAT_MAX) attributes:<#(NSDictionary *)#>]
+    NSArray *pics = _status.retweeted_status.pic_urls;
+    
+    NSLog(@"");
 }
 
 -(CGSize)boundingRectsize:(NSString *)string size:(CGSize)size attributes:(NSDictionary *)attributes

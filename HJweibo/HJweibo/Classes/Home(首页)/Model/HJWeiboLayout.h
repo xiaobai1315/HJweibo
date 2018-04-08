@@ -33,6 +33,10 @@
 
 //转发微博
 @property (nonatomic, assign) CGFloat retweetHeight;
+@property (nonatomic, assign) CGFloat retweetTextHeight;   //转发文本高度
+@property (nonatomic, strong) NSMutableAttributedString *retweetContentText;//转发文本内容
+@property (nonatomic, assign) CGFloat retweetPicHeight; //转发图片高度
+@property (nonatomic, strong) NSArray *retweetPicArray; //转发图片数组
 
 //工具栏
 @property (nonatomic, assign) CGFloat toolBarHeight;

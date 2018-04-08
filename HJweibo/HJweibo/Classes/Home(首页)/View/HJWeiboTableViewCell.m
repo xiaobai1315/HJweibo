@@ -104,39 +104,49 @@
 
 -(void)layoutSubviews
 {
+    //如果没有图片，直接返回
+    if ((_layout.picArray == nil) || (_layout.picArray.count == 0)) {
+        for (UIView *view in self.subviews) {
+            if (![view isKindOfClass:[UIImageView class]]) {
+                continue;
+            }
+            
+            UIImageView *imageView = (UIImageView *)view;
+            imageView.hidden = YES;
+        }
+        return;
+    }
+        
     CGFloat height = self.frame.size.height;
     CGFloat imageW = ImageViewW;
     CGFloat imageH = ImageViewW;
     CGFloat imageX = 0;
     CGFloat imageY = 0;
     NSInteger imagePerRow = 3;  //每一行图片的个数
-    
-    //一张图片
-    if (_picArray.count == 1) {
-        self.subviews[0].frame = CGRectMake(0, 0, height, height);
-        return;
-    }
-    
-    if (_picArray.count == 4) {
+
+    if (_layout.picArray.count == 4) {
         imagePerRow = 2;
     }
     
-    for (NSInteger i = 0; i < _picArray.count; i++) {
+    for (NSInteger i = 0; i < self.subviews.count; i++) {
 
         UIView *view = self.subviews[i];
         if (![view isKindOfClass:[UIImageView class]]) {
             continue;
         }
         
+        UIImageView *imageView = (UIImageView *)view;
+        
+        if (i > _layout.picArray.count - 1) {
+            imageView.hidden = YES;
+            continue;
+        }
+        
+        imageView.hidden = NO;
         NSInteger row = i / imagePerRow;
         NSInteger column = i % imagePerRow;
-        
-        UIImageView *imageView = (UIImageView *)view;
-        imageView.hidden = NO;
-        
         imageX = (ImageViewW + HJMargin) * column;
         imageY = (ImageViewW + HJMargin) * row;
-        
         imageView.frame = CGRectMake(imageX, imageY, imageW, imageH);
     }
 }
@@ -161,6 +171,29 @@
 
 //转发微博
 @implementation HJWeiboRetweetView
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    
+    _textLabel = [[YYLabel alloc] init];
+    [self addSubview:_textLabel];
+    
+    _pictureView = [[HJWeiboPicView alloc] init];
+    [self addSubview:_pictureView];
+    
+    return self;
+}
+
+-(void)layoutSubviews
+{
+    
+}
+
+-(void)setLayout:(HJWeiboLayout *)layout
+{
+    _layout = layout;
+}
 
 @end
 
@@ -295,10 +328,8 @@
     _textLabel.font = WeiboContentFontSize;
     
     //图片区
-    if (layout.picArray.count != 0) {
-        _picView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, viewW, layout.picHeight);
-        _picView.layout = layout;
-    }
+    _picView.layout = layout;
+    _picView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, viewW, layout.picHeight);
     
     //工具栏
     _toolbarView.frame = CGRectMake(HJMargin, layout.cellHeight - ToolBarHeight - 10, ScreenWidth - HJMargin * 2, ToolBarHeight);

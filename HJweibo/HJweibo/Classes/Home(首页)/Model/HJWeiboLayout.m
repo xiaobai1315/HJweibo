@@ -28,6 +28,7 @@
     [self layoutProfile];
     [self layoutText];
     [self layoutToolBar];
+    [self layoutImageView];
     
     _cellHeight += HJMargin + _profileHeight + HJMargin;
     _cellHeight += _textHeight + HJMargin;
@@ -163,6 +164,12 @@
     _contentText = [[NSMutableAttributedString alloc] initWithString:text];
     _textHeight = [self boundingRectsize:text size:CGSizeMake(ScreenWidth - 20, MAXFLOAT) attributes:@{NSFontAttributeName: WeiboContentFontSize}].height;
     
+}
+
+//图片
+-(void)layoutImageView
+{
+    NSArray *imageArr = _status.pic_urls;
 }
 
 -(void) layoutToolBar

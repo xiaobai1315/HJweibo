@@ -28,6 +28,8 @@
 
 //图片
 @property (nonatomic, assign) CGFloat picHeight;
+@property (nonatomic, strong) NSArray *picArray;
+
 
 //转发微博
 @property (nonatomic, assign) CGFloat retweetHeight;

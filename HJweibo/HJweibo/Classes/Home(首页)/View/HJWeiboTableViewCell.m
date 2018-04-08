@@ -95,9 +95,65 @@
     
     for(NSInteger i = 0; i < 9; i++){
         UIImageView *imageView = [UIImageView new];
+        imageView.hidden = YES;
+        imageView.backgroundColor = [UIColor greenColor];
         [self addSubview:imageView];
     }
     return self;
+}
+
+-(void)layoutSubviews
+{
+    CGFloat height = self.frame.size.height;
+    CGFloat imageW = ImageViewW;
+    CGFloat imageH = ImageViewW;
+    CGFloat imageX = 0;
+    CGFloat imageY = 0;
+    NSInteger imagePerRow = 3;  //每一行图片的个数
+    
+    //一张图片
+    if (_picArray.count == 1) {
+        self.subviews[0].frame = CGRectMake(0, 0, height, height);
+        return;
+    }
+    
+    if (_picArray.count == 4) {
+        imagePerRow = 2;
+    }
+    
+    for (NSInteger i = 0; i < _picArray.count; i++) {
+
+        UIView *view = self.subviews[i];
+        if (![view isKindOfClass:[UIImageView class]]) {
+            continue;
+        }
+        
+        NSInteger row = i / imagePerRow;
+        NSInteger column = i % imagePerRow;
+        
+        UIImageView *imageView = (UIImageView *)view;
+        imageView.hidden = NO;
+        
+        imageX = (ImageViewW + HJMargin) * column;
+        imageY = (ImageViewW + HJMargin) * row;
+        
+        imageView.frame = CGRectMake(imageX, imageY, imageW, imageH);
+    }
+}
+
+-(void)setLayout:(HJWeiboLayout *)layout
+{
+    _layout = layout;
+    
+    for (NSInteger i = 0; i < layout.picArray.count; i++) {
+        UIView *view = self.subviews[i];
+        if (![view isKindOfClass:[UIImageView class]]) {
+            continue;
+        }
+        
+        UIImageView *imageView = (UIImageView *)view;
+        [imageView setImageURL:[NSURL URLWithString:layout.picArray[i]]];
+    }
 }
 
 @end
@@ -226,6 +282,7 @@
 -(void)setLayout:(HJWeiboLayout *)layout
 {
     CGFloat viewW = ScreenWidth - HJMargin * 2;
+    _layout = layout;
     
     //用户信息
     _profileView.frame = CGRectMake(HJMargin, HJMargin, viewW, layout.profileHeight);
@@ -237,9 +294,16 @@
     _textLabel.numberOfLines = 0;
     _textLabel.font = WeiboContentFontSize;
     
+    //图片区
+    if (layout.picArray.count != 0) {
+        _picView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, viewW, layout.picHeight);
+        _picView.layout = layout;
+    }
+    
     //工具栏
     _toolbarView.frame = CGRectMake(HJMargin, layout.cellHeight - ToolBarHeight - 10, ScreenWidth - HJMargin * 2, ToolBarHeight);
     _toolbarView.layout = layout;
+    
 }
 
 @end

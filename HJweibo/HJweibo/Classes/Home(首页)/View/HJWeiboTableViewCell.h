@@ -20,6 +20,10 @@
 
 //发布的图片
 @interface HJWeiboPicView : UIView
+//<<<<<<< HEAD
+//=======
+@property (nonatomic, strong) HJWeiboLayout *layout;
+//>>>>>>> c090cef23988937b68b9c765ba6435413dfb4152
 @property (nonatomic, strong) NSArray *picArray;//图片数组
 @end
 

@@ -21,6 +21,7 @@
 //发布的图片
 @interface HJWeiboPicView : UIView
 @property (nonatomic, strong) HJWeiboLayout *layout;
+@property(nonatomic, strong) NSArray *pictureArray;
 @end
 
 //转发微博

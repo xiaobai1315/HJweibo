@@ -105,7 +105,7 @@
 -(void)layoutSubviews
 {
     //如果没有图片，直接返回
-    if ((_layout.picArray == nil) || (_layout.picArray.count == 0)) {
+    if ((_pictureArray == nil) || (_pictureArray.count == 0)) {
         for (UIView *view in self.subviews) {
             if (![view isKindOfClass:[UIImageView class]]) {
                 continue;
@@ -124,7 +124,7 @@
     CGFloat imageY = 0;
     NSInteger imagePerRow = 3;  //每一行图片的个数
 
-    if (_layout.picArray.count == 4) {
+    if (_pictureArray.count == 4) {
         imagePerRow = 2;
     }
     
@@ -137,7 +137,7 @@
         
         UIImageView *imageView = (UIImageView *)view;
         
-        if (i > _layout.picArray.count - 1) {
+        if (i > _pictureArray.count - 1) {
             imageView.hidden = YES;
             continue;
         }
@@ -151,18 +151,33 @@
     }
 }
 
--(void)setLayout:(HJWeiboLayout *)layout
+//-(void)setLayout:(HJWeiboLayout *)layout
+//{
+//    _layout = layout;
+//
+//    for (NSInteger i = 0; i < layout.picArray.count; i++) {
+//        UIView *view = self.subviews[i];
+//        if (![view isKindOfClass:[UIImageView class]]) {
+//            continue;
+//        }
+//
+//        UIImageView *imageView = (UIImageView *)view;
+//        [imageView setImageURL:[NSURL URLWithString:layout.picArray[i]]];
+//    }
+//}
+
+-(void)setPictureArray:(NSArray *)pictureArray
 {
-    _layout = layout;
+    _pictureArray = pictureArray;
     
-    for (NSInteger i = 0; i < layout.picArray.count; i++) {
+    for (NSInteger i = 0; i < pictureArray.count; i++) {
         UIView *view = self.subviews[i];
         if (![view isKindOfClass:[UIImageView class]]) {
             continue;
         }
         
         UIImageView *imageView = (UIImageView *)view;
-        [imageView setImageURL:[NSURL URLWithString:layout.picArray[i]]];
+        [imageView setImageURL:[NSURL URLWithString:pictureArray[i]]];
     }
 }
 
@@ -187,12 +202,22 @@
 
 -(void)layoutSubviews
 {
+    CGFloat width = self.frame.size.width - HJMargin * 2;
     
+    _textLabel.frame = CGRectMake(HJMargin, 0, width, _layout.retweetTextHeight);
+    
+    _pictureView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, width, _layout.retweetPicHeight);
 }
 
 -(void)setLayout:(HJWeiboLayout *)layout
 {
     _layout = layout;
+    _textLabel.attributedText = layout.retweetContentText;
+    _textLabel.font = RetweetWeiboContentFontSize;
+    _textLabel.numberOfLines = 0;
+    
+//    _pictureView.layout = layout;
+    _pictureView.pictureArray = layout.retweetPicArray;
 }
 
 @end
@@ -304,6 +329,7 @@
     [self addSubview:_picView];
     
     _retweetView = [HJWeiboRetweetView new];
+    _retweetView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     [self addSubview:_retweetView];
     
     _toolbarView = [HJWeiboToolbarView new];
@@ -327,9 +353,22 @@
     _textLabel.numberOfLines = 0;
     _textLabel.font = WeiboContentFontSize;
     
-    //图片区
-    _picView.layout = layout;
-    _picView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, viewW, layout.picHeight);
+    if (layout.retweetHeight != 0) {    //转发区有内容
+        _picView.hidden = YES;
+        _retweetView.hidden = NO;
+        
+        //转发微博
+        _retweetView.pictureView.pictureArray = layout.retweetPicArray;
+        _retweetView.frame = CGRectMake(0, _textLabel.bottom + HJMargin, ScreenWidth, layout.retweetHeight);
+        
+    }else {
+        _picView.hidden = NO;
+        _retweetView.hidden = YES;
+        
+        //图片区
+        _picView.pictureArray = layout.picArray;
+        _picView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, viewW, layout.picHeight);
+    }
     
     //工具栏
     _toolbarView.frame = CGRectMake(HJMargin, layout.cellHeight - ToolBarHeight - 10, ScreenWidth - HJMargin * 2, ToolBarHeight);

@@ -193,6 +193,10 @@
         
     }else {
         NSInteger row = pics.count / 3;
+        NSInteger column = pics.count % 3;
+        if (column != 0) {
+            row = row + 1;
+        }
         _picHeight = ImageViewW * row + HJMargin;
     }
     
@@ -216,13 +220,44 @@
         return;
     }
     
+    //获取转发微博的文本
     NSString *retweetText = _status.retweeted_status.text;
     retweetText = [NSString stringWithFormat:@"@%@:%@", _status.retweeted_status.user.screen_name, retweetText];
-    _retweetContentText = [[NSAttributedString alloc] initWithString:retweetText attributes:nil];
-    _retweetTextHeight = [self boundingRectsize:retweetText size:CGSizeMake(ScreenWidth - 2 * HJMargin, CGFLOAT_MAX) attributes:<#(NSDictionary *)#>]
-    NSArray *pics = _status.retweeted_status.pic_urls;
+    _retweetContentText = [[NSMutableAttributedString alloc] initWithString:retweetText attributes:nil];
+    NSDictionary *att = @{NSFontAttributeName : RetweetWeiboContentFontSize};
+    _retweetTextHeight = [self boundingRectsize:retweetText size:CGSizeMake(ScreenWidth - 2 * HJMargin, CGFLOAT_MAX) attributes:att].height;
     
-    NSLog(@"");
+    //获取转发微博的图片
+    NSArray *pics = _status.retweeted_status.pic_urls;
+    if (pics.count == 0) {
+        _retweetPicHeight = 0;
+        _retweetPicArray = nil;
+        return;
+        
+    }else if (pics.count == 1) {
+        _retweetPicHeight = ImageViewW;
+        
+    }else if (pics.count == 4){
+        _retweetPicHeight = ImageViewW * 2 + HJMargin;
+        
+    }else {
+        
+#warning 计算方式有问题
+        NSInteger row = pics.count / 3;
+        NSInteger column = pics.count % 3;
+        if (column != 0) {
+            row = row + 1;
+        }
+        _retweetPicHeight = ImageViewW * row + HJMargin;
+    }
+    
+    NSMutableArray *picArray = [NSMutableArray array];
+    for (NSDictionary *dic in pics) {
+        [picArray addObject:[dic valueForKey:@"thumbnail_pic"]];
+    }
+    _retweetPicArray = picArray;
+    
+    _retweetHeight = _retweetTextHeight + _retweetPicHeight;
 }
 
 -(CGSize)boundingRectsize:(NSString *)string size:(CGSize)size attributes:(NSDictionary *)attributes

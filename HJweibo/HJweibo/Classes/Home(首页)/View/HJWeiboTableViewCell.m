@@ -151,21 +151,6 @@
     }
 }
 
-//-(void)setLayout:(HJWeiboLayout *)layout
-//{
-//    _layout = layout;
-//
-//    for (NSInteger i = 0; i < layout.picArray.count; i++) {
-//        UIView *view = self.subviews[i];
-//        if (![view isKindOfClass:[UIImageView class]]) {
-//            continue;
-//        }
-//
-//        UIImageView *imageView = (UIImageView *)view;
-//        [imageView setImageURL:[NSURL URLWithString:layout.picArray[i]]];
-//    }
-//}
-
 -(void)setPictureArray:(NSArray *)pictureArray
 {
     _pictureArray = pictureArray;
@@ -183,7 +168,6 @@
 
 @end
 
-
 //转发微博
 @implementation HJWeiboRetweetView
 
@@ -200,23 +184,18 @@
     return self;
 }
 
--(void)layoutSubviews
-{
-    CGFloat width = self.frame.size.width - HJMargin * 2;
-    
-    _textLabel.frame = CGRectMake(HJMargin, 0, width, _layout.retweetTextHeight);
-    
-    _pictureView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, width, _layout.retweetPicHeight);
-}
-
 -(void)setLayout:(HJWeiboLayout *)layout
 {
     _layout = layout;
+    
+    CGFloat width = ScreenWidth - HJMargin * 2;
+    
     _textLabel.attributedText = layout.retweetContentText;
     _textLabel.font = RetweetWeiboContentFontSize;
     _textLabel.numberOfLines = 0;
+    _textLabel.frame = CGRectMake(HJMargin, HJMargin, width, _layout.retweetTextHeight);
     
-//    _pictureView.layout = layout;
+    _pictureView.frame = CGRectMake(HJMargin, _textLabel.bottom + HJMargin, width, _layout.retweetPicHeight);
     _pictureView.pictureArray = layout.retweetPicArray;
 }
 
@@ -358,7 +337,8 @@
         _retweetView.hidden = NO;
         
         //转发微博
-        _retweetView.pictureView.pictureArray = layout.retweetPicArray;
+//        _retweetView.pictureView.pictureArray = layout.retweetPicArray;
+        _retweetView.layout = layout;
         _retweetView.frame = CGRectMake(0, _textLabel.bottom + HJMargin, ScreenWidth, layout.retweetHeight);
         
     }else {

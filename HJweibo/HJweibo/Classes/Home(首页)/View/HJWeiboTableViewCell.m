@@ -104,20 +104,6 @@
 
 -(void)layoutSubviews
 {
-    //如果没有图片，直接返回
-    if ((_pictureArray == nil) || (_pictureArray.count == 0)) {
-        for (UIView *view in self.subviews) {
-            if (![view isKindOfClass:[UIImageView class]]) {
-                continue;
-            }
-            
-            UIImageView *imageView = (UIImageView *)view;
-            imageView.hidden = YES;
-        }
-        return;
-    }
-        
-    CGFloat height = self.frame.size.height;
     CGFloat imageW = ImageViewW;
     CGFloat imageH = ImageViewW;
     CGFloat imageX = 0;
@@ -137,6 +123,13 @@
         
         UIImageView *imageView = (UIImageView *)view;
         
+        //没有图片时隐藏imageView 防止复用出现问题
+        if ((_pictureArray == nil) || (_pictureArray.count == 0)) {
+            imageView.hidden = YES;
+            continue;
+        }
+        
+        //图片数量少于9 隐藏没有用到的imageView 防止复用出现问题
         if (i > _pictureArray.count - 1) {
             imageView.hidden = YES;
             continue;
@@ -298,19 +291,24 @@
 {
     self = [super initWithFrame:frame];
     
+    //昵称、头像
     _profileView = [HJWeiboProfileView new];
     [self addSubview:_profileView];
     
+    //微博文本
     _textLabel = [YYLabel new];
     [self addSubview:_textLabel];
     
+    //发布图片
     _picView = [HJWeiboPicView new];
     [self addSubview:_picView];
     
+    //转发微博
     _retweetView = [HJWeiboRetweetView new];
     _retweetView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     [self addSubview:_retweetView];
     
+    //工具栏
     _toolbarView = [HJWeiboToolbarView new];
     [self addSubview:_toolbarView];
     
@@ -332,12 +330,12 @@
     _textLabel.numberOfLines = 0;
     _textLabel.font = WeiboContentFontSize;
     
+    //转发微博和图片只能同时存在一个
     if (layout.retweetHeight != 0) {    //转发区有内容
         _picView.hidden = YES;
         _retweetView.hidden = NO;
         
         //转发微博
-//        _retweetView.pictureView.pictureArray = layout.retweetPicArray;
         _retweetView.layout = layout;
         _retweetView.frame = CGRectMake(0, _textLabel.bottom + HJMargin, ScreenWidth, layout.retweetHeight);
         

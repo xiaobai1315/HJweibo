@@ -74,6 +74,35 @@ static HJTools *_instance;
     return [UIImage imageWithContentsOfFile:imagePath];
 }
 
+//从Emoticons.bundle中取图片
+-(UIImage *)getEmotionImage:(NSString *)imageName
+{
+    __block NSArray *arr = [NSArray array];
+    __block NSString *imageBasePath = @"";
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"Emoticons" ofType:@"bundle"];
+        NSString *plistPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"content" ofType:@"plist" inDirectory:@"com.sina.default"];
+        NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+        arr = dict[@"emoticons"];
+        
+        imageBasePath = [bundlePath stringByAppendingPathComponent:@"emoticonImage"];
+    });
+    
+    NSString *_imageName = @"";
+    for (NSDictionary *dict in arr) {
+        if ([dict[@"chs"] isEqualToString:imageName]) {
+            _imageName = dict[@"png"];
+            break;
+        }
+    }
+    
+    NSString *path = [imageBasePath stringByAppendingPathComponent:_imageName];
+    UIImage *image = [UIImage imageWithContentsOfFile:path];
+    
+    return image;
+}
+
 //获取微博发布时间,转换成 刚刚 几分钟前 几个小时前 形式 通过C的方式，比NSDateFormatter效率要快
 // Tue Jun 27 09:36:54 +0800 2017
 -(NSString *)convertTime:(NSString *)publishTime
@@ -372,14 +401,16 @@ static HJTools *_instance;
     
     __block NSMutableArray *linkArray = [NSMutableArray array];
     
-    [regular enumerateMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, string.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+    [regular enumerateMatchesInString:string options:NSMatchingReportProgress | NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, string.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         
-        NSRange range = result.range;
-        NSString *text = [string substringWithRange:range];
-        
-        if(text.length > 0){
-            HJLinkModel *model = [HJLinkModel linkModelWithText:text range:range];
-            [linkArray addObject:model];
+        if (result) {
+            NSRange range = result.range;
+            NSString *text = [string substringWithRange:range];
+            
+            if(text.length > 0){
+                HJLinkModel *model = [HJLinkModel linkModelWithText:text range:range];
+                [linkArray addObject:model];
+            }
         }
     }];
 

@@ -17,6 +17,7 @@
 		4A1C280F1EEAA15C008F5719 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A1C280E1EEAA15C008F5719 /* Assets.xcassets */; };
 		4A33895D1FD7923100CA8410 /* ResourceWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */; };
 		4A3389601FD9361E00CA8410 /* HJToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A33895F1FD9361E00CA8410 /* HJToolBarButton.m */; };
+		4A3B5744207DF444000FEE17 /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A3B5743207DF444000FEE17 /* Emoticons.bundle */; };
 		4A4E06BF1EEE301700572304 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E06BC1EEE301700572304 /* Info.plist */; };
 		4A4E06C01EEE301700572304 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06BD1EEE301700572304 /* main.m */; };
 		4A4E06C61EEE34C600572304 /* HJVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E06C51EEE34C600572304 /* HJVisualEffectView.m */; };
@@ -82,6 +83,7 @@
 		4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ResourceWeibo.bundle; sourceTree = "<group>"; };
 		4A33895E1FD9361E00CA8410 /* HJToolBarButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HJToolBarButton.h; sourceTree = "<group>"; };
 		4A33895F1FD9361E00CA8410 /* HJToolBarButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJToolBarButton.m; sourceTree = "<group>"; };
+		4A3B5743207DF444000FEE17 /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		4A4E06BC1EEE301700572304 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HJweibo/Info.plist; sourceTree = SOURCE_ROOT; };
 		4A4E06BD1EEE301700572304 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HJweibo/main.m; sourceTree = SOURCE_ROOT; };
 		4A4E06C41EEE34C600572304 /* HJVisualEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJVisualEffectView.h; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 		4A33895B1FD7921900CA8410 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4A3B5743207DF444000FEE17 /* Emoticons.bundle */,
 				4A33895C1FD7923100CA8410 /* ResourceWeibo.bundle */,
 			);
 			path = Source;
@@ -664,6 +667,7 @@
 				4A4E06CF1EEE70AC00572304 /* Localizable.strings in Resources */,
 				4A4E06EF1EF1278000572304 /* HJNewFeatureViewController.xib in Resources */,
 				4A4E06BF1EEE301700572304 /* Info.plist in Resources */,
+				4A3B5744207DF444000FEE17 /* Emoticons.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

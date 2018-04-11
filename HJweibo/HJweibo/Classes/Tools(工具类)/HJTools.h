@@ -23,6 +23,9 @@
 //获取微博bundle里面的图片
 -(UIImage *)getWeiboImage:(NSString *)imageName;
 
+//从Emoticons.bundle中取图片
+-(UIImage *)getEmotionImage:(NSString *)imageName;
+
 //根据正则表达式获取字符串
 -(NSArray *)regularExpressionWithString:(NSString *)string pattern:(NSString *)pattern;
 

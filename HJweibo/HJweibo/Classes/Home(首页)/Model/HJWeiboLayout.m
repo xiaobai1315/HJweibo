@@ -143,8 +143,7 @@
     if(shortUrlArr.count != 0){
         HJLinkModel *model = shortUrlArr[0];
         NSString *link = model.linkText;
-//        NSLog(@"text = %@", text);
-//        NSLog(@"link = %@", link);
+        
         //获取短连接的信息
         NSDictionary *para = @{
                                @"access_token" : [[HJTools shareManager] getAccessToken],
@@ -157,14 +156,27 @@
         }];
     }
     
+    _contentText = [[NSMutableAttributedString alloc] initWithString:text];
+    
     //获取文本中的emoji表情
     NSArray *emojiArr = [[HJTools shareManager] regularExpressionWithString:text pattern:WBContentEmoji];
-//    NSLog(@"emojiArr = %@", emojiArr);
+    for (HJLinkModel *model in emojiArr) {
+        UIImage *emotionImage = [[HJTools shareManager] getEmotionImage:model.linkText];
+        [_contentText setTextAttachment:[YYTextAttachment attachmentWithContent:emotionImage] range:model.linkRange];
+    }
+    
     //获取文本中的@用户
     NSArray *atUserArr = [[HJTools shareManager] regularExpressionWithString:text pattern:WBContentAtUser];
-//    NSLog(@"atUserArr = %@", atUserArr);
+    for (HJLinkModel *model in atUserArr) {
+        [_contentText setColor:SourceAllowClickFontColor range:model.linkRange];
+        YYTextHighlight *highlight = [YYTextHighlight new];
+        [highlight setTapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+            NSLog(@"%@", text.string);
+        }];
+        
+        [_contentText setTextHighlight:highlight range:model.linkRange];
+    }
     
-    _contentText = [[NSMutableAttributedString alloc] initWithString:text];
     _textHeight = [self boundingRectsize:text size:CGSizeMake(ScreenWidth - 20, MAXFLOAT) attributes:@{NSFontAttributeName: WeiboContentFontSize}].height;
     
 }

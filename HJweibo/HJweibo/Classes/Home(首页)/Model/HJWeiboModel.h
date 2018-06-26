@@ -20,10 +20,15 @@
  用户信息模型
  */
 @interface HJUserModel : NSObject
-@property(nonatomic, copy)NSString *screen_name;        //用户昵称
-@property(nonatomic, copy)NSString *profile_image_url;  //头像地址
-@property(nonatomic, copy)NSString *avatar_large;       //头像大图
-@property(nonatomic, copy)NSString *avatar_hd;          //头像高清
+@property (nonatomic, copy) NSString *screen_name;        //用户昵称
+@property (nonatomic, copy) NSString *profile_image_url;  //头像地址
+@property (nonatomic, copy) NSString *avatar_large;       //头像大图
+@property (nonatomic, copy) NSString *avatar_hd;          //头像高清
+@property (nonatomic, copy) NSString *cover_image_phone;  //头像的背景图片
+@property (nonatomic, copy) NSString *description;        //个人签名
+@property (nonatomic, assign) NSInteger friends_count;    //关注个数
+@property (nonatomic, assign) NSInteger followers_count;  //粉丝个数
+
 @end
 
 

@@ -56,3 +56,7 @@
 @property (nonatomic, strong) HJWeiboLayout *layout;
 @property (nonatomic, strong) HJWeiboStatusView *statusView;
 @end
+
+@interface HJWeiboImageView : UIViewController
+@property (nonatomic, copy)NSString *imageUrl;  //image的地址
+@end

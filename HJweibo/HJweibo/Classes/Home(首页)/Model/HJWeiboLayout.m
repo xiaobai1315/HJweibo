@@ -198,7 +198,7 @@
         return;
         
     }else if (pics.count == 1) {
-        _picHeight = ImageViewW;
+        _picHeight = SingalImageViewH;
         
     }else {
         NSInteger row = pics.count / 3;
@@ -248,7 +248,7 @@
         return;
         
     }else if (pics.count == 1) {
-        _retweetPicHeight = ImageViewW + HJMargin;
+        _retweetPicHeight = SingalImageViewH + HJMargin;
         
     }else {
         

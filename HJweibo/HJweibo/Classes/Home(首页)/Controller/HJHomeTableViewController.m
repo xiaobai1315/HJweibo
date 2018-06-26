@@ -57,13 +57,13 @@
     
     //添加导航栏按钮
     [self setupBarButtons];
+    
+    [self requestDataFromServer];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
 //    [self.tableView.mj_header beginRefreshing];
-    
-    [self requestDataFromServer];
 }
 
 //添加导航栏按钮
@@ -127,7 +127,7 @@
                            };
     [[HJNetRequest shareInstance] get:friendTimeline parameters:para success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        //        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
         
         //将微博信息数组转成模型数组
         NSArray *dataArr = responseObject[@"statuses"];

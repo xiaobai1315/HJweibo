@@ -87,7 +87,16 @@
 @end
 
 //发布的图片
+@interface HJWeiboPicView()<UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+
+@end
+
 @implementation HJWeiboPicView
+{
+    BOOL _isPresent;
+    NSString *_selImage;
+    CGRect _selImageViewFrame;
+}
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -97,6 +106,13 @@
         UIImageView *imageView = [UIImageView new];
         imageView.hidden = YES;
         imageView.backgroundColor = [UIColor greenColor];
+        imageView.contentMode = UIViewContentModeScaleToFill;
+        imageView.tag = i;
+        
+        //添加点击手势
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDidSelcted:)];
+        [imageView addGestureRecognizer:tap];
         [self addSubview:imageView];
     }
     return self;
@@ -110,6 +126,12 @@
     CGFloat imageY = 0;
     NSInteger imagePerRow = 3;  //每一行图片的个数
 
+    if (_pictureArray.count == 1) {
+        
+        imageW = SingalImageViewW;
+        imageH = SingalImageViewH;
+    }
+    
     if (_pictureArray.count == 4) {
         imagePerRow = 2;
     }
@@ -155,9 +177,167 @@
         }
         
         UIImageView *imageView = (UIImageView *)view;
-        [imageView setImageURL:[NSURL URLWithString:pictureArray[i]]];
+        
+        NSString *picture = pictureArray[i];
+        if (![picture containsString:@"thumbnail"]) {
+            continue;
+        }
+        picture = [picture stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+                             
+        __weak UIImageView *weakImageView = imageView;
+
+        [imageView setImageWithURL:[NSURL URLWithString:picture] placeholder:nil options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+
+            //裁剪长图
+            if (image.size.height > ScreenHeight) {
+                CGFloat imageW = image.size.width;
+                CGFloat imageViewW = weakImageView.size.width;
+                CGFloat imageViewH = weakImageView.size.height;
+                CGFloat imageH = imageW * imageViewH / imageViewW;
+                
+                UIGraphicsBeginImageContextWithOptions(CGSizeMake(imageW, imageH), 0, [UIScreen mainScreen].scale);
+                [image drawAtPoint:CGPointMake(0, 0)];
+                UIImage *_image = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+
+                weakImageView.image = _image;
+            }
+        }];
     }
 }
+
+-(void)imageDidSelcted:(UITapGestureRecognizer *)tap
+{
+    UIImageView *imageView = (UIImageView *)tap.view;
+    
+    //保存选中的图片和图片的坐标
+    _selImage = _pictureArray[tap.view.tag];
+    _selImageViewFrame = [imageView convertRect:imageView.bounds toViewOrWindow:self.window];
+    
+    NSString *picUrl = _pictureArray[imageView.tag];
+    if (picUrl == nil || picUrl.length == 0) {
+        return;
+    }
+    
+    if (![picUrl containsString:@"thumbnail"]) {
+        return;
+    }
+    
+    picUrl = [picUrl stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+    
+    HJWeiboImageView *_imageView = [[HJWeiboImageView alloc] init];
+    _imageView.imageUrl = picUrl;
+    
+    _imageView.modalPresentationStyle = UIModalPresentationCustom;
+    _imageView.transitioningDelegate = self;
+    
+    [self.viewController presentViewController:_imageView animated:YES completion:nil];
+}
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    _isPresent = YES;
+    return self;
+}
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    _isPresent = NO;
+    return self;
+}
+
+- (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext
+{
+    return 0.5;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
+{
+    if (_isPresent) {
+        [self presentTransition:transitionContext];
+    }else {
+        [self dismissTransition:transitionContext];
+    }
+}
+
+- (void)presentTransition:(id <UIViewControllerContextTransitioning>)transitionContext
+{
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+
+    //获取当前点击的图片
+    UIView *backView = [[UIView alloc] init];
+    backView.backgroundColor = [UIColor blackColor];
+    backView.frame = fromVC.view.bounds;
+    backView.alpha = 0;
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.frame = _selImageViewFrame;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [imageView setImageURL:[NSURL URLWithString:_selImage]];
+    
+    fromVC.view.hidden = YES;
+    
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    toVC.view.hidden = YES;
+    
+    [transitionContext.containerView addSubview:toVC.view];
+    [transitionContext.containerView addSubview:backView];
+    [transitionContext.containerView addSubview:imageView];
+    
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+        
+        imageView.frame = backView.bounds;
+        backView.alpha = 1;
+    } completion:^(BOOL finished) {
+        toVC.view.hidden = NO;
+        [imageView removeFromSuperview];
+        [backView removeFromSuperview];
+        [transitionContext completeTransition:YES];
+    }];
+}
+
+- (void)dismissTransition:(id <UIViewControllerContextTransitioning>)transitionContext
+{
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+
+    UIView *backView = [[UIView alloc] init];
+    backView.frame = fromVC.view.bounds;
+    backView.backgroundColor = [UIColor blackColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.frame = backView.bounds;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [imageView setImageURL:[NSURL URLWithString:_selImage]];
+    
+    fromVC.view.hidden = YES;
+    
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    toVC.view.hidden = NO;
+    toVC.view.alpha = 1;
+    
+    [transitionContext.containerView addSubview:backView];
+    [transitionContext.containerView addSubview:imageView];
+    
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+       
+        backView.alpha = 0;
+        imageView.frame = _selImageViewFrame;
+        
+    } completion:^(BOOL finished) {
+        [backView removeFromSuperview];
+        [transitionContext completeTransition:YES];
+    }];
+}
+
+
+//- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator
+//{
+//    _isPresent = YES;
+//    return self;
+//}
+//- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator;
+//
+//- (nullable UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(nullable UIViewController *)presenting sourceViewController:(UIViewController *)source NS_AVAILABLE_IOS(8_0);
 
 @end
 
@@ -356,6 +536,7 @@
 
 @end
 
+
 @implementation HJWeiboTableViewCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -383,6 +564,35 @@
     frame.size.height -= 10;
     
     [super setFrame:frame];
+}
+
+@end
+
+//点击图片时弹出的大图View
+@implementation HJWeiboImageView
+{
+    UIImageView *_imageView;
+}
+
+-(instancetype)init
+{
+    self = [super init];
+    self.view.backgroundColor = [UIColor blackColor];
+    _imageView = [[UIImageView alloc] init];
+    _imageView.frame = self.view.bounds;
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:_imageView];
+    return self;
+}
+
+-(void)setImageUrl:(NSString *)imageUrl
+{
+    [_imageView setImageURL:[NSURL URLWithString:imageUrl]];
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
